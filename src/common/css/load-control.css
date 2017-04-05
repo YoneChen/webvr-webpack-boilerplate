@@ -12,14 +12,19 @@
 	z-index: 10000;
 }
 .svg-load {
-	width: 122px;
-	height: 122px;    
-	transform: rotate(-90deg); 
+	width: 150px;
+	height: 150px;     
 }
 .svg-load circle {
 		fill: none;
 		stroke: #00aadd;
 		stroke-width: 2px;
+		transform: rotate(-90deg);
+    	transform-origin: 50%;
+	}
+.svg-load text {
+		fill: #fff;
+		font-size: 12px
 	}
 .loaded {
 	transition: opacity 2s 2s;
