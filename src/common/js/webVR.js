@@ -98,28 +98,4 @@ export default class WebVR {
 		};
 		render();
 	}
-	static clear() {
-		cancelAnimationFrame(WebVR.loopID);
-		WebVR.loopID = undefined;
-		while(WebVR.Scene.children.length > 0){ 
-    		WebVR.Scene.remove(WebVR.Scene.children[0]); 
-		}
-		WebVR = {};
-		this.domContainer.querySelector('canvas').remove();
-		// this.loadControl.clear();
-		// this.loadControl = {};
-	}
-	static forward(scriptPath) {
-		// 	require.ensure([],require => {
-		// 		let page = require(scriptPath);
-		// 		new page();
-		// });
-	}
-	static sleep(ms) {
-		return new Promise(resolve => {
-			setTimeout(() => {
-				resolve();
-			},ms)
-		})
-	}
 }

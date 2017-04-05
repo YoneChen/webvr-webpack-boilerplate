@@ -26,8 +26,8 @@ class Index extends WebVR {
 	}
 	addDirectLight() {
 		// 创建光线
-        WebVR.Scene.add(new THREE.AmbientLight(0xFFFFFF));
-        let light = new THREE.DirectionalLight( 0xffffff, 0.3 );
+		WebVR.Scene.add(new THREE.AmbientLight(0xFFFFFF));
+		let light = new THREE.DirectionalLight( 0xffffff, 0.3 );
 		light.position.set( 50, 50, 50 );
 		light.castShadow = true;
 		light.shadow.mapSize.width = 2048;
@@ -50,7 +50,7 @@ class Index extends WebVR {
 			angle: Math.PI/6*index,
 			width:20,
 			height:15
-		}
+		};
 		let hx = option.hover*Math.sin(option.angle),hz = option.hover*Math.cos(option.angle);
 		let geometry = new THREE.PlaneGeometry(option.width,option.height);
 		let material = new THREE.MeshLambertMaterial({map:new THREE.TextureLoader().load(background)});
