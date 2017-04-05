@@ -1,0 +1,17 @@
+# output dir
+dist
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# package
+node_modules
+node_modules_back
+jspm_packages
+
+*.DS_Store
+.DS_Store
+.git
+yarn.lock

@@ -1,0 +1,65 @@
+{
+  "name": "webvr-webpack-starter",
+  "version": "1.0.0",
+  "description": "A webvr project for three.js, es6/7, webpack2 and postcss",
+  "scripts": {
+    "start": "webpack-dev-server --config webpack/webpack.dev.js --watch",
+    "build": "NODE_ENV=production webpack --config webpack/webpack.prod.js --progress --display-error-details --color",
+    "precommit": "eslint src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/micooz/es6-webpack-starter.git"
+  },
+  "keywords": [
+    "webvr",
+    "three",
+    "webpack2",
+    "starter",
+    "postcss",
+    "es6"
+  ],
+  "author": "YorkChan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YorkChan94/webvr-webpack-starter/issues"
+  },
+  "homepage": "https://github.com/YorkChan94/webvr-webpack-starter#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "glslify": "^6.0.2",
+    "three": "^0.84.0",
+    "three-onevent": "^1.0.6",
+    "tween.js": "^16.6.0",
+    "webvr-boilerplate": "0.4.6",
+    "webvr-polyfill": "^0.9.26"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.7.6",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.4.0",
+    "babel-plugin-transform-class-properties": "^6.23.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-latest": "^6.22.0",
+    "clean-webpack-plugin": "^0.1.15",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.26.2",
+    "eslint": "^3.17.1",
+    "eslint-loader": "^1.6.3",
+    "eslint-plugin-react": "^6.10.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.10.1",
+    "html-webpack-plugin": "^2.28.0",
+    "json-loader": "^0.5.4",
+    "postcss-cssnext": "^2.10.0",
+    "postcss-import": "^9.1.0",
+    "postcss-loader": "^1.3.3",
+    "postcss-smart-import": "^0.6.10",
+    "style-loader": "^0.13.2",
+    "url-loader": "^0.5.8",
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.4.1",
+    "webpack-merge": "^4.0.0"
+  }
+}
