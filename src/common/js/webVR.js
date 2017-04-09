@@ -10,7 +10,7 @@ export default class WebVR {
 	constructor(options) {
 		WebVR.initScene(options);
 		this.crossHair();
-		WebVR.bindEvent();
+		this.bindEvent();
 		this.start();
 		this.render();
 	}
@@ -35,6 +35,7 @@ export default class WebVR {
 		WebVR.Renderer.setPixelRatio(window.devicePixelRatio);
 		domContainer.appendChild(WebVR.Renderer.domElement);
 		WebVR.initVR();
+		WebVR.initAudio();
 		WebVR.resize();
 	}
 	static resize() {
@@ -53,6 +54,14 @@ export default class WebVR {
 		// Initialize the WebVR manager.
 		WebVR.Manager = new WebVRManager(WebVR.Renderer, WebVR.Effect);
 	}
+	static initAudio() {
+
+		// instantiate a listener
+		WebVR.AudioListener = new THREE.AudioListener();
+
+		// add the listener to the camera
+		WebVR.Camera.add( WebVR.AudioListener );
+	}
 	crossHair() {
 		// 创建准心
 		let crosshair = new THREE.Mesh(new THREE.RingGeometry( 0.02, 0.03, 32 ),new THREE.MeshBasicMaterial( {
@@ -63,28 +72,26 @@ export default class WebVR {
 		crosshair.position.z = -2;
 		WebVR.Camera.add( crosshair );
 	}
-	static bindEvent() {
+	bindEvent() {
 		THREE.onEvent(WebVR.Scene,WebVR.Camera);
-		THREE.DefaultLoadingManager.onStart = ( url, itemsLoaded, itemsTotal ) => {
-			this.loadControl = new  LoadControl(itemsTotal);
+		this.loadControl = new LoadControl();
 
-			console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-
-		};
-
-		THREE.DefaultLoadingManager.onProgress = ( item, loaded, total ) => {
-
+		THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal ) => {
+			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(itemsTotal);
+			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
 			this.loadControl.loadItem(); 
 
 		};
 		THREE.DefaultLoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();
+			this.loaded();
 			console.log('finish');
 
 		};
 	}
 	start() {
 	}
+	loaded() {}
 	update(delta) {
 	}
 	render() {

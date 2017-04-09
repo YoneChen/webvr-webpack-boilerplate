@@ -4,6 +4,7 @@ const webpackConfig = require('./webpack.config');
 const webpackMerge = require('webpack-merge');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const UglifyJsPlugin = require('webpack/lib/optimize/UglifyJsPlugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = webpackMerge(webpackConfig,{
 
@@ -23,6 +24,9 @@ module.exports = webpackMerge(webpackConfig,{
       'process.env': {
         NODE_ENV: "'development'"
       }
+    }),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '..')
     }),
     new UglifyJsPlugin({
       compressor: {

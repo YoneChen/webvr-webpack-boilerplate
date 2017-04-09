@@ -27,6 +27,6 @@
 		font-size: 12px
 	}
 .loaded {
-	transition: opacity 2s 2s;
+	transition: opacity 1s 1s;
 	opacity: 0;
 }

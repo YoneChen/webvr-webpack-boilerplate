@@ -2,19 +2,23 @@
 import './example.css';
 import WebVR from 'common/js/webVR';
 import TWEEN from 'tween.js';
-const ASSET = {
-	BACKGROUND_PATH: './assets/bg.jpg',
-	BUTTON_BACKROUND_PATH1: './assets/btn1.png'
-};
+// const ASSET = {
+// 	BACKGROUND_PATH: './assets/360bg.jpg'
+// };
+import ASSET_TEXTURE_SKYBOX from '../assets/texture/360bg.jpg';
+import ASSET_AUDIO_ENV from '../assets/audio/env.wav';
 class Index extends WebVR {
 	constructor() {
 		super({domContainer:document.querySelector('.main-page')});
 	}
 	start() {
-		this.addPanorama(1000, ASSET.BACKGROUND_PATH);
-		this.addButton({index:1,background:ASSET.BUTTON_BACKROUND_PATH1});
-		this.addButton({index:2,background:ASSET.BUTTON_BACKROUND_PATH1});
+		this.addEnvAudio(ASSET_AUDIO_ENV);
+		this.addPanorama(1000, ASSET_TEXTURE_SKYBOX);
+		this.addButton({index:1,text:'Hello,WebVR!'});
 		this.addDirectLight();
+	}
+	loaded() {
+
 	}
 	addPanorama(radius,path) {
 		// 创建全景
@@ -23,6 +27,30 @@ class Index extends WebVR {
 		let panorama = new THREE.Mesh(geometry,material);
 		WebVR.Scene.add(panorama);
 		return panorama;
+	}
+	addEnvAudio(path) {
+		// instantiate audio object
+		let sound = new THREE.Audio( WebVR.AudioListener );
+
+		// add the audio object to the scene
+		WebVR.Scene.add( sound );
+		// instantiate a loader
+		let loader = new THREE.AudioLoader();
+
+		// load a resource
+		loader.load(
+			// resource URL
+			path,
+			// Function when resource is loaded
+			audioBuffer => {
+				// set the audio object buffer to the loaded object
+				sound.setBuffer( audioBuffer );
+				sound.setLoop(true);
+				// play the audio
+				sound.play();
+			}
+		);
+		return sound;
 	}
 	addDirectLight() {
 		// 创建光线
@@ -41,19 +69,35 @@ class Index extends WebVR {
 		WebVR.Scene.add( light );
 		return light;
 	}
-	addButton({background,index}) {
+	getTexture(text,fontSize) {
+		const WIDTH = 400,HEIGHT = 300;
+		let canvas = document.createElement('canvas');
+		canvas.width = WIDTH,canvas.height = HEIGHT;
+		let ctx = canvas.getContext('2d');
+		ctx.fillStyle = '#000000';
+		ctx.fillRect(0,0,WIDTH,WIDTH);
+		ctx.fillStyle = '#00aadd';
+		ctx.font = `${fontSize}px Arial`;
+		ctx.textAlign = 'center';
+		ctx.textBaseline = 'middle';
+		ctx.fillText(text,WIDTH/2,HEIGHT/2);
+		let texture = new THREE.Texture(canvas);
+		texture.needsUpdate = true;
+		return texture;
+	}
+	addButton({text,index,fontSize=64}) {
 		// body...
 		const option = {
 			hover: 5,
 			camera: WebVR.Camera,
-			radius: 50,
+			radius: 25,
 			angle: Math.PI/6*index,
-			width:20,
-			height:15
+			width:10,
+			height:7.5
 		};
 		let hx = option.hover*Math.sin(option.angle),hz = option.hover*Math.cos(option.angle);
 		let geometry = new THREE.PlaneGeometry(option.width,option.height);
-		let material = new THREE.MeshLambertMaterial({map:new THREE.TextureLoader().load(background)});
+		let material = new THREE.MeshBasicMaterial({map:this.getTexture(text,32),opacity:0.75,transparent:true});
 		let button = new THREE.Mesh(geometry,material);
 		let cx = option.camera.position.x,
 			cy = option.camera.position.y,

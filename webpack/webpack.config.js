@@ -52,8 +52,8 @@ module.exports = {
       },
 
       {
-        test: /\.(jpg|png|gif|eot|svg|ttf|woff|woff2)$/,
-        loader: 'file',
+        test: /\.(jpg|png|gif|obj|mtl|dae|wav|ogg|eot|svg|ttf|woff|woff2)$/,
+        loader: 'file-loader',
       },
 
       {
@@ -74,11 +74,11 @@ module.exports = {
       'THREE': 'three'
     }),
     
-    new CopyWebpackPlugin([
-    {
-      from: 'src/assets',
-      to: 'assets'
-    }]),
+    // new CopyWebpackPlugin([
+    // {
+    //   from: 'src/assets',
+    //   to: 'assets'
+    // }]),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       inject: true,

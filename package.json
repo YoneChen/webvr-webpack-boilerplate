@@ -1,15 +1,15 @@
 {
-  "name": "webvr-webpack-starter",
+  "name": "webvr-webpack2-boilerplate",
   "version": "1.0.0",
   "description": "A webvr project for three.js, es6/7, webpack2 and postcss",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --watch",
-    "build": "NODE_ENV=production webpack --config webpack/webpack.prod.js --progress --display-error-details --color",
+    "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js --progress --display-error-details --color",
     "precommit": "eslint src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/micooz/es6-webpack-starter.git"
+    "url": "git+https://github.com/YorkChan94/webvr-webpack2-boilerplate.git"
   },
   "keywords": [
     "webvr",
@@ -22,9 +22,9 @@
   "author": "YorkChan",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YorkChan94/webvr-webpack-starter/issues"
+    "url": "https://github.com/YorkChan94/webvr-webpack2-boilerplate/issues"
   },
-  "homepage": "https://github.com/YorkChan94/webvr-webpack-starter#readme",
+  "homepage": "https://github.com/YorkChan94/webvr-webpack2-boilerplater#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "glslify": "^6.0.2",
@@ -42,8 +42,9 @@
     "babel-plugin-transform-class-properties": "^6.23.0",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-latest": "^6.22.0",
-    "clean-webpack-plugin": "^0.1.15",
+    "clean-webpack-plugin": "^0.1.16",
     "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^4.0.0",
     "css-loader": "^0.26.2",
     "eslint": "^3.17.1",
     "eslint-loader": "^1.6.3",

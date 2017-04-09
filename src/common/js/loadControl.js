@@ -1,22 +1,22 @@
 import '../css/load-control';
 export default class LoadControl {
-	constructor(count = 0) {
-		if(!(typeof(count) === 'number') || count <=0 ) return false;
+	constructor(radius = 37.5) {
+		this.radius = radius;
+		this.animate = false;
 		this.initDom();
-		this.initAnimate(count);
 	}
-	static Dom() {
-		return `<svg class="svg-load" contorl="load">
-						<circle cx="50%" cy="50%" r="25%"></circle>   
+	static Dom(radius) {
+		return `<svg class="svg-load">
+						<circle cx="50%" cy="50%" r="${radius}"></circle>   
 						<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Loading...</text>
 					</svg>`.repeat(2);
 	}
-	initDom(domElement = document.body) {
-		const DOM = LoadControl.Dom();
+	initDom() {
+		const DOM = LoadControl.Dom(this.radius);
 		this.dom = document.createElement('section');
 		this.dom.className += 'load-control';
 		this.dom.innerHTML = DOM;
-		domElement.appendChild(this.dom);
+		document.body.appendChild(this.dom);
 		this.cricle = this.dom.querySelectorAll('circle');
 		this.loadDom = this.dom.querySelectorAll('svg');
 		this.cloneDom = this.loadDom[1];
@@ -28,37 +28,43 @@ export default class LoadControl {
 	doubleDom() {
 		this.cloneDom.style.display = 'block';
 	}
+	hasAnimate() {
+		return this.animate;
+	}
 	initAnimate(count) {
+		if(!(typeof(count) === 'number') || count <=0 ) return false;
+		this.animate = true;
 		this.loadDataset = {
 			count: count,
 			rest: count,
-			cricleLength: -1,
-			offest: -1,
-			unloadLength: -1
+			cricleLength: this.radius * 2 *  Math.PI,
+			offest: 0,
+			unloadLength: 0
 		};
-		this.cricle.forEach(l => {
-			l.style.transition = 'none';
-			if(!this.cricleLength) this.loadDataset.cricleLength = l.getTotalLength();
-			// 设置起始点
+		Array.from(this.cricle).forEach(l => {
 			l.style.strokeDasharray = `${this.loadDataset.cricleLength} ${this.loadDataset.cricleLength}`;
 			l.style.strokeDashoffset = this.loadDataset.cricleLength;
-			// 获取一个区域，获取相关的样式，让浏览器寻找一个起始点。
-			l.getBoundingClientRect();
-			// 定义动作
-			l.style.transition = 'stroke-dashoffset 2s';
-			// Go!
 		});
 		this.loadDataset.unloadLength = this.loadDataset.cricleLength;
 		this.loadDataset.offest = 1/this.loadDataset.count * this.loadDataset.cricleLength;
 	}
 	loadItem() {
-		this.cricle.forEach(l => {
-			l.style.strokeDashoffset = this.loadDataset.unloadLength -= this.loadDataset.offest;
+		let strokeDashoffset = this.loadDataset.unloadLength -= this.loadDataset.offest;
+		Array.from(this.cricle).forEach(l => {
+			l.style.transition = 'none';
+			l.style.transition = 'stroke-dashoffset 1s';
+			l.style.strokeDashoffset = strokeDashoffset;
 		});
 		return --this.loadDataset.rest;
 	}
 	loadedAll() {
 		this.dom.className += ' loaded';
+		this.dom.addEventListener('webkitTransitionEnd',e => {
+			this.clear();
+		});
+		this.dom.addEventListener('transitionend',e => {
+			this.clear();
+		});
 	}
 	clear() {
 		this.dom.remove();
