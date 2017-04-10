@@ -2,9 +2,7 @@
 import './example.css';
 import WebVR from 'common/js/webVR';
 import TWEEN from 'tween.js';
-// const ASSET = {
-// 	BACKGROUND_PATH: './assets/360bg.jpg'
-// };
+
 import ASSET_TEXTURE_SKYBOX from '../assets/texture/360bg.jpg';
 import ASSET_AUDIO_ENV from '../assets/audio/env.wav';
 class Index extends WebVR {
@@ -21,7 +19,7 @@ class Index extends WebVR {
 
 	}
 	addPanorama(radius,path) {
-		// 创建全景
+		// create panorama
 		let geometry = new THREE.SphereGeometry(radius,50,50);
 		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(path),side:THREE.BackSide } );
 		let panorama = new THREE.Mesh(geometry,material);
