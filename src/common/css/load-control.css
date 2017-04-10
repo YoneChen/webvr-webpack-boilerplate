@@ -1,5 +1,5 @@
 .load-control {
-	display: none;
+	transition: opacity 1s 1s;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -19,14 +19,14 @@
 		fill: none;
 		stroke: #00aadd;
 		stroke-width: 2px;
-		transform: rotate(-90deg);
-    	transform-origin: 50%;
+		display: none;
+		// transform: rotate(-90deg);
+  //   	transform-origin: 50%;
 	}
 .svg-load text {
 		fill: #fff;
 		font-size: 12px
 	}
 .loaded {
-	transition: opacity 1s 1s;
 	opacity: 0;
 }
