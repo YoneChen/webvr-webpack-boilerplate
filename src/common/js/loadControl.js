@@ -44,6 +44,7 @@ export default class LoadControl {
 		Array.from(this.cricle).forEach(l => {
 			l.style.strokeDasharray = `${this.loadDataset.cricleLength} ${this.loadDataset.cricleLength}`;
 			l.style.strokeDashoffset = this.loadDataset.cricleLength;
+			l.style.display = 'inline-block';
 		});
 		this.loadDataset.unloadLength = this.loadDataset.cricleLength;
 		this.loadDataset.offest = 1/this.loadDataset.count * this.loadDataset.cricleLength;
