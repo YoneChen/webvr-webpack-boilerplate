@@ -18,7 +18,8 @@ body {
 	bottom: 0;
 	cursor: -webkit-grab;
 }.load-control {
-	display: none;
+	-webkit-transition: opacity 1s 1s;
+	transition: opacity 1s 1s;
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -43,17 +44,14 @@ body {
 		fill: none;
 		stroke: #00aadd;
 		stroke-width: 2px;
-		-webkit-transform: rotate(-90deg);
-		        transform: rotate(-90deg);
-    	-webkit-transform-origin: 50%;
-    	        transform-origin: 50%;
+		display: none;
+		// transform: rotate(-90deg);
+  //   	transform-origin: 50%;
 	}
 .svg-load text {
 		fill: #fff;
 		font-size: 12px
 	}
 .loaded {
-	-webkit-transition: opacity 1s 1s;
-	transition: opacity 1s 1s;
 	opacity: 0;
 }
