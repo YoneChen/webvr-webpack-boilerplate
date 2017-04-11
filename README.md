@@ -2,6 +2,8 @@
 
 > A webvr project for three.js, es6/7, webpack2 and postcss.
 
+![](http://upload-images.jianshu.io/upload_images/1939855-bc93667d702feed0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## Features
 
 * webvr: a webvr boilerplate used with webpack 
@@ -62,6 +64,12 @@ class Index extends WebVR {
 		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(ASSET_TEXTURE_BOX) } );
 		let box = new THREE.Mesh(geometry,material);
         box.position.set(3,-2,-3);
+        // add gaze eventLisenter
+        box.on('gaze',mesh => { // gazeIn trigger
+            mesh.scale.set(1.2,1.2,1.2);
+        },mesh => { // gazeOut trigger
+            mesh.scale.set(1,1,1);
+        })
 		WebVR.Scene.add(box);
 		return box;
 	}

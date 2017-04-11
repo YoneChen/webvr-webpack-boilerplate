@@ -15,7 +15,6 @@ export default class WebVR {
 		this.render();
 	}
 	static initScene({domContainer=document.body,fov=70,far=4000}) {
-		// await WebVR.loadScript(['three-vrcontrols','three-vreffect','three-onevent']);
 		if (!(domContainer instanceof HTMLElement)) {
 			throw new Error('domContainer is not a HTMLElement!');
 		}
@@ -30,7 +29,6 @@ export default class WebVR {
 		// Initialize the renderer
 		WebVR.Renderer = new THREE.WebGLRenderer({ antialias: true } );
 		WebVR.Renderer.setSize(window.innerWidth,window.innerHeight);
-		// this.renderer.setClearColor(0x519EcB);
 		WebVR.Renderer.shadowMapEnabled = true;
 		WebVR.Renderer.setPixelRatio(window.devicePixelRatio);
 		domContainer.appendChild(WebVR.Renderer.domElement);
