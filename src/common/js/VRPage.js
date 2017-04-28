@@ -12,16 +12,18 @@ export default class VRPage {
 		this.start();
 	}
 	bindEvent() {
+		let flag = true;
 		this.loadControl = new LoadControl();
         if (WebVR.Manager.mode === 3) {
             this.loadControl.doubleDom();
         }
 		WebVR.LoadingManager = THREE.DefaultLoadingManager;
 		WebVR.LoadingManager.onProgress = (url, itemsLoaded, itemsTotal ) => {
-			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(itemsTotal);
-			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+			if(flag) WebVR.LoaderCount = itemsTotal - WebVR.LoaderCount;
+			flag = false;
+			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(WebVR.LoaderCount);
+			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + WebVR.LoaderCount + ' files.' );
 			this.loadControl.loadItem(); 
-
 		};
 		WebVR.LoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();

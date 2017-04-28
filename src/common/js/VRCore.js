@@ -12,10 +12,10 @@ let
 	Effect = {instance:'THREE.VREffect'},
 	Controls = {instance:'THREE.Controls'},
 	Manager = {instance:'THREE.Manager'},
-	LoadingManager = {instance:'THREE.LoadingManager'},
+	LoadingManager = {instance:'THREE.LoadingManager',value:null},
 	AudioListener = {instance:'THREE.AudioListener'},
 	CLOCK = {instance:'THREE.Clock'},
-	LoopID = {instance:'Number'},
+	LoaderCount = 0,
 	CrossHair = {instance:'THREE.CrossHair'};
 let isFirstPage = true,
 	loopID = 0;
@@ -109,4 +109,4 @@ function cleanPage() {
 	renderStop();
 	clearScene();
 }
-export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,createScene,cleanPage,resize,initVR,initAudio,createCrossHair};
+export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,resize,initVR,initAudio,createCrossHair};
