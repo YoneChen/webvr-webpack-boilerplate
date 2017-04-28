@@ -9,7 +9,7 @@ module.exports = {
 
   entry: {
     'vendor': './src/common/js/vendor.js',
-    'app': './src/app/example.js'
+    'app': './src/index.js'
   },
 
   resolve: {
@@ -17,6 +17,8 @@ module.exports = {
     extensions: ['.js', '.css','*'],
     alias: {
     	common: path.resolve(__dirname,'../src/common/'),
+    	page: path.resolve(__dirname,'../src/page/'),
+    	assets: path.resolve(__dirname,'../src/assets/'),
     	lib: path.resolve(__dirname,'../src/lib/')
     }
 
@@ -71,19 +73,14 @@ module.exports = {
       minChunks: Infinity
     }),
     new ProvidePlugin({
-      'THREE': 'three'
+      'THREE': 'three',
+      'WebVR':path.resolve(__dirname,'../src/common/js/VRCore.js')
     }),
-    
-    // new CopyWebpackPlugin([
-    // {
-    //   from: 'src/assets',
-    //   to: 'assets'
-    // }]),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../src/app/example.html'),
-      // favicon: path.resolve(__dirname, '../src/assets/favicon.ico')
+      template: path.resolve(__dirname, '../src/index.html'),
+      favicon: path.resolve(__dirname, '../src/favicon.ico')
     })
   ]
 
