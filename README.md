@@ -48,7 +48,7 @@ See the example in `src/app`
 Here comes the basic script for webvr page.
 
 ```
-import WebVR from 'common/js/webVR';
+import VRPage from 'common/js/VRPage';
 
 import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends WebVR {
