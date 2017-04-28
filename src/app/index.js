@@ -1,6 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
-import './example.css';
+import 'common/css/main.css';
 import VRPage from 'common/js/VRPage';
 import TWEEN from 'tween.js';
 
@@ -85,7 +85,6 @@ class Index extends VRPage {
 		return texture;
 	}
 	addButton({text,index,fontSize=64}) {
-		// body...
 		const option = {
 			hover: 5,
 			camera: WebVR.Camera,
@@ -117,7 +116,6 @@ class Index extends VRPage {
 		.to({x:x,z:z},1000)
 		.easing(TWEEN.Easing.Sinusoidal.InOut);
 		button.on('gaze',m => {
-		// debugger
 			hoverback.stop();
 			hover.start();
 		},m => {

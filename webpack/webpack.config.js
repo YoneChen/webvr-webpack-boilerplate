@@ -9,7 +9,7 @@ module.exports = {
 
   entry: {
     'vendor': './src/common/js/vendor.js',
-    'app': './src/app/example.js'
+    'app': './src/app/index.js'
   },
 
   resolve: {
@@ -74,16 +74,10 @@ module.exports = {
       'THREE': 'three',
       'WebVR':path.resolve(__dirname,'../src/common/js/VRCore.js')
     }),
-    
-    // new CopyWebpackPlugin([
-    // {
-    //   from: 'src/assets',
-    //   to: 'assets'
-    // }]),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../src/app/example.html'),
+      template: path.resolve(__dirname, '../src/app/index.html'),
       // favicon: path.resolve(__dirname, '../src/assets/favicon.ico')
     })
   ]
