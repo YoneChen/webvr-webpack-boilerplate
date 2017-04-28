@@ -71,7 +71,8 @@ module.exports = {
       minChunks: Infinity
     }),
     new ProvidePlugin({
-      'THREE': 'three'
+      'THREE': 'three',
+      'WebVR':path.resolve(__dirname,'../src/common/js/VRCore.js')
     }),
     
     // new CopyWebpackPlugin([

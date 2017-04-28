@@ -1,11 +1,12 @@
  /*global THREE:true*/
+ /*global WebVR:true*/
 import './example.css';
-import WebVR from 'common/js/webVR';
+import VRPage from 'common/js/VRPage';
 import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from '../assets/texture/360bg.jpg';
 import ASSET_AUDIO_ENV from '../assets/audio/env.wav';
-class Index extends WebVR {
+class Index extends VRPage {
 	constructor() {
 		super({domContainer:document.querySelector('.main-page')});
 	}
