@@ -22,7 +22,6 @@ export default class VRPage {
 			if(flag) WebVR.LoaderCount = itemsTotal - WebVR.LoaderCount;
 			flag = false;
 			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(WebVR.LoaderCount);
-			console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + WebVR.LoaderCount + ' files.' );
 			this.loadControl.loadItem(); 
 		};
 		WebVR.LoadingManager.onLoad = () => {

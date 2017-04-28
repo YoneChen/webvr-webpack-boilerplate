@@ -12,7 +12,7 @@ let
 	Effect = {instance:'THREE.VREffect'},
 	Controls = {instance:'THREE.Controls'},
 	Manager = {instance:'THREE.Manager'},
-	LoadingManager = {instance:'THREE.LoadingManager',value:null},
+	LoadingManager = {instance:'THREE.LoadingManager'},
 	AudioListener = {instance:'THREE.AudioListener'},
 	CLOCK = {instance:'THREE.Clock'},
 	LoaderCount = 0,
