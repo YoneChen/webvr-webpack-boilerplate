@@ -5,14 +5,17 @@ export default class VRPage {
 	constructor(options) {
 		WebVR.createScene(options);
 		this.initPage();
+        WebVR.renderStart(this.update);
 	}
 	initPage() {
 		this.bindEvent();
 		this.start();
-		this.render();
 	}
 	bindEvent() {
 		this.loadControl = new LoadControl();
+        if (WebVR.Manager.mode === 3) {
+            this.loadControl.doubleDom();
+        }
 		WebVR.LoadingManager = THREE.DefaultLoadingManager;
 		WebVR.LoadingManager.onProgress = (url, itemsLoaded, itemsTotal ) => {
 			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(itemsTotal);
@@ -22,7 +25,9 @@ export default class VRPage {
 		};
 		WebVR.LoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();
-			this.loaded();
+            setTimeout(() => {
+                this.loaded();
+            },100);
 			console.log('finish');
 
 		};
@@ -31,16 +36,5 @@ export default class VRPage {
 	}
 	loaded() {}
 	update(delta) {
-	}
-	render() {
-		// launch the render
-		let render = () => {
-			const delta = WebVR.CLOCK.getDelta();
-			this.update(delta);
-			WebVR.Controls.update();
-			WebVR.Manager.render(WebVR.Scene, WebVR.Camera);
-			WebVR.loopID = requestAnimationFrame(render);
-		};
-		render();
 	}
 }

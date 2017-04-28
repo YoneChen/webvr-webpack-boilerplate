@@ -9,7 +9,7 @@ module.exports = {
 
   entry: {
     'vendor': './src/common/js/vendor.js',
-    'app': './src/app/index.js'
+    'app': './src/index.js'
   },
 
   resolve: {
@@ -17,6 +17,8 @@ module.exports = {
     extensions: ['.js', '.css','*'],
     alias: {
     	common: path.resolve(__dirname,'../src/common/'),
+    	page: path.resolve(__dirname,'../src/page/'),
+    	assets: path.resolve(__dirname,'../src/assets/'),
     	lib: path.resolve(__dirname,'../src/lib/')
     }
 
@@ -77,7 +79,7 @@ module.exports = {
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../src/app/index.html'),
+      template: path.resolve(__dirname, '../src/index.html'),
       // favicon: path.resolve(__dirname, '../src/assets/favicon.ico')
     })
   ]

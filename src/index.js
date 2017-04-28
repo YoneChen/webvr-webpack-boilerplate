@@ -4,8 +4,8 @@ import 'common/css/main.css';
 import VRPage from 'common/js/VRPage';
 import TWEEN from 'tween.js';
 
-import ASSET_TEXTURE_SKYBOX from '../assets/texture/360bg.jpg';
-import ASSET_AUDIO_ENV from '../assets/audio/env.wav';
+import ASSET_TEXTURE_SKYBOX from 'assets/texture/360bg.jpg';
+import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 class Index extends VRPage {
 	constructor() {
 		super({domContainer:document.querySelector('.main-page')});
@@ -17,7 +17,7 @@ class Index extends VRPage {
 		this.addDirectLight();
 	}
 	loaded() {
-
+        this.envSound.play();
 	}
 	addPanorama(radius,path) {
 		// create panorama
@@ -29,10 +29,10 @@ class Index extends VRPage {
 	}
 	addEnvAudio(path) {
 		// instantiate audio object
-		let sound = new THREE.Audio( WebVR.AudioListener );
+		this.envSound = new THREE.Audio( WebVR.AudioListener );
 
 		// add the audio object to the scene
-		WebVR.Scene.add( sound );
+		WebVR.Scene.add( this.envSound );
 		// instantiate a loader
 		let loader = new THREE.AudioLoader();
 
@@ -43,13 +43,12 @@ class Index extends VRPage {
 			// Function when resource is loaded
 			audioBuffer => {
 				// set the audio object buffer to the loaded object
-				sound.setBuffer( audioBuffer );
-				sound.setLoop(true);
+				this.envSound.setBuffer( audioBuffer );
+				this.envSound.setLoop(true);
 				// play the audio
-				sound.play();
+				// sound.play();
 			}
 		);
-		return sound;
 	}
 	addDirectLight() {
 		// 创建光线
@@ -111,6 +110,10 @@ class Index extends VRPage {
 		.to({x:x-hx,z:z+hz},1000)
 		.easing(TWEEN.Easing.Sinusoidal.InOut)
 		.onComplete(() => {
+			WebVR.cleanPage();
+			TWEEN.removeAll();
+			// forward next scene
+			require('bundle-loader!page/example.js');
 		});
 		let hoverback = new TWEEN.Tween(button.position)
 		.to({x:x,z:z},1000)

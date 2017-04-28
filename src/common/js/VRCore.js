@@ -15,8 +15,10 @@ let
 	LoadingManager = {instance:'THREE.LoadingManager'},
 	AudioListener = {instance:'THREE.AudioListener'},
 	CLOCK = {instance:'THREE.Clock'},
+	LoopID = {instance:'Number'},
 	CrossHair = {instance:'THREE.CrossHair'};
-let isFirstPage = true;
+let isFirstPage = true,
+	loopID = 0;
 function createScene({domContainer=document.body,fov=70,far=4000}) {
 	if(!isFirstPage) return isFirstPage;
 	isFirstPage = !isFirstPage;
@@ -76,4 +78,35 @@ function createCrossHair() {
 	CrossHair.position.z = -2;
 	Camera.add( CrossHair );
 }
-export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,createScene,resize,initVR,initAudio,createCrossHair};
+function renderStop() {
+	if (loopID !== -1) {
+		window.cancelAnimationFrame(loopID);
+		loopID = -1;
+	}
+}
+function renderStart(callback) {
+	// launch the render
+	loopID = 0;
+	let loop = () => {
+		if(loopID === -1) return;
+		loopID = requestAnimationFrame(loop);
+		const delta = CLOCK.getDelta();
+		callback(delta);
+		Controls.update();
+		Manager.render(Scene, Camera);
+	};
+	loop();
+}
+function clearScene() {
+	for(let item of Scene.children) {
+		if(item.type === 'Audio') {
+			item.stop();
+		}
+	}
+	Scene.children.splice(1);
+}
+function cleanPage() {
+	renderStop();
+	clearScene();
+}
+export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,createScene,cleanPage,resize,initVR,initAudio,createCrossHair};
