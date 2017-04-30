@@ -13,10 +13,24 @@ class Index extends VRPage {
 	start() {
 		this.addEnvAudio(ASSET_AUDIO_ENV);
 		this.addPanorama(1000, ASSET_TEXTURE_SKYBOX);
-		this.addButton({index:1,text:'Hello,WebVR!'});
+		this.addButton({
+			index:1,
+			text:'Goto Page1!',
+			callback: () => {
+				require('bundle-loader!page/page1.js');
+			}
+		});
+		this.addButton({
+			index:2,
+			text:'Goto Page2!',
+			callback: () => {
+				require('bundle-loader!page/page2.js');
+			}
+		});
 		this.addDirectLight();
 	}
 	loaded() {
+		// play the sound
         this.envSound.play();
 	}
 	addPanorama(radius,path) {
@@ -45,13 +59,11 @@ class Index extends VRPage {
 				// set the audio object buffer to the loaded object
 				this.envSound.setBuffer( audioBuffer );
 				this.envSound.setLoop(true);
-				// play the audio
-				// sound.play();
 			}
 		);
 	}
 	addDirectLight() {
-		// 创建光线
+		// create the enviromental light
 		WebVR.Scene.add(new THREE.AmbientLight(0xFFFFFF));
 		let light = new THREE.DirectionalLight( 0xffffff, 0.3 );
 		light.position.set( 50, 50, 50 );
@@ -83,7 +95,7 @@ class Index extends VRPage {
 		texture.needsUpdate = true;
 		return texture;
 	}
-	addButton({text,index,fontSize=64}) {
+	addButton({text,index,fontSize=64,callback=()=>{}}) {
 		const option = {
 			hover: 5,
 			camera: WebVR.Camera,
@@ -92,7 +104,7 @@ class Index extends VRPage {
 			width:10,
 			height:7.5
 		};
-		let hx = option.hover*Math.sin(option.angle),hz = option.hover*Math.cos(option.angle);
+		let hx = option.hover * Math.sin(option.angle),hz = option.hover * Math.cos(option.angle);
 		let geometry = new THREE.PlaneGeometry(option.width,option.height);
 		let material = new THREE.MeshBasicMaterial({map:this.getTexture(text,32),opacity:0.75,transparent:true});
 		let button = new THREE.Mesh(geometry,material);
@@ -113,7 +125,7 @@ class Index extends VRPage {
 			WebVR.cleanPage();
 			TWEEN.removeAll();
 			// forward next scene
-			require('bundle-loader!page/example.js');
+			callback();
 		});
 		let hoverback = new TWEEN.Tween(button.position)
 		.to({x:x,z:z},1000)
@@ -130,4 +142,6 @@ class Index extends VRPage {
 		TWEEN.update();
 	}
 }
-new Index();
+export default (() => {
+	return new Index();
+})();

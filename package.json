@@ -29,7 +29,7 @@
     "babel-polyfill": "^6.23.0",
     "glslify": "^6.0.2",
     "three": "^0.84.0",
-    "three-onevent": "^1.0.6",
+    "three-onevent": "^1.0.8",
     "tween.js": "^16.6.0",
     "webvr-boilerplate": "0.4.6",
     "webvr-polyfill": "^0.9.26"

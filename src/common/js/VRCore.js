@@ -17,7 +17,7 @@ let
 	CLOCK = {instance:'THREE.Clock'},
 	LoaderCount = 0,
 	CrossHair = {instance:'THREE.CrossHair'};
-let isFirstPage = true,
+let isFirstPage = true,Event = {},
 	loopID = 0;
 function createScene({domContainer=document.body,fov=70,far=4000}) {
 	if(!isFirstPage) return isFirstPage;
@@ -42,7 +42,7 @@ function createScene({domContainer=document.body,fov=70,far=4000}) {
 	initAudio();
 	resize();
 	createCrossHair();
-	THREE.onEvent(Scene,Camera);
+	Event = new THREE.onEvent(Scene,Camera);
 	return isFirstPage;
 }
 function resize() {
@@ -98,15 +98,17 @@ function renderStart(callback) {
 	loop();
 }
 function clearScene() {
-	for(let item of Scene.children) {
-		if(item.type === 'Audio') {
-			item.stop();
+	for(let i = Scene.children.length - 1; i >= 0; i-- ) {
+		if (Scene.children[i].type === 'PerspectiveCamera') continue;
+		if (Scene.children[i].type === 'Audio') {
+			Scene.children[i].stop();
 		}
+		Scene.remove(Scene.children[i]);
 	}
-	Scene.children.splice(1);
 }
 function cleanPage() {
 	renderStop();
 	clearScene();
+	Event.removeAll();
 }
 export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,resize,initVR,initAudio,createCrossHair};
