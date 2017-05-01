@@ -59,12 +59,12 @@ class Index extends VRPage {
 		let geometry = new THREE.CubeGeometry(5,5,5);
 		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(ASSET_TEXTURE_BOX) } );
 		this.box = new THREE.Mesh(geometry,material);
-        this.box.position.set(3,-2,-3);
-        // add gaze eventLisenter
+		this.box.position.set(3,-2,-3);
+		// add gaze eventLisenter
         this.box.on('gaze',mesh => { // gazeIn trigger
-            mesh.scale.set(1.2,1.2,1.2);
+			mesh.scale.set(1.2,1.2,1.2);
         },mesh => { // gazeOut trigger
-            mesh.scale.set(1,1,1);
+			mesh.scale.set(1,1,1);
         });
 		WebVR.Scene.add(box);
 	}
