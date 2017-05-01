@@ -61,11 +61,10 @@ class Index extends VRPage {
 		this.box = new THREE.Mesh(geometry,material);
 		this.box.position.set(3,-2,-3);
 		// add gaze eventLisenter
-        this.box.on('gaze',mesh => { // gazeIn trigger
+		this.box.on('gaze',mesh => { // gazeIn trigger
 			mesh.scale.set(1.2,1.2,1.2);
-        },mesh => { // gazeOut trigger
-			mesh.scale.set(1,1,1);
-        });
+		},mesh => { // gazeOut trigger
+		});
 		WebVR.Scene.add(box);
 	}
 	loaded() {
