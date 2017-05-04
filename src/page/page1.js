@@ -52,7 +52,7 @@ class page1 extends VRPage {
 		);
 	}
 	addDirectLight() {
-		// create light
+		// create the enviromental light
 		WebVR.Scene.add(new THREE.AmbientLight(0xdddddd));
 		let light = new THREE.DirectionalLight( 0xddddcc, 0.3 );
 		light.position.set( 100, 100, 100 );
