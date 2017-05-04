@@ -9,7 +9,7 @@ module.exports = {
 
   entry: {
     'vendor': './src/common/js/vendor.js',
-    'app': './src/index.js'
+    'app': './src/page/index.js'
   },
 
   resolve: {

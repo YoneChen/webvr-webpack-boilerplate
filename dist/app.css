@@ -1,23 +1,4 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-html,body {
-	height: 100%;
-}
-body {
-	font-size: 14px;
-	font-family: "Arial","Microsoft YaHei","\9ED1\4F53",sans-serif;
-	overflow: hidden;
-}
-.main-page {
-	position: absolute;
-	left: 0;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	cursor: -webkit-grab;
-}.load-control {
+.load-control {
 	-webkit-transition: opacity 1s 1s;
 	transition: opacity 1s 1s;
 	position: absolute;
@@ -54,4 +35,23 @@ body {
 	}
 .loaded {
 	opacity: 0;
+}* {
+	margin: 0;
+	padding: 0;
+}
+html,body {
+	height: 100%;
+}
+body {
+	font-size: 14px;
+	font-family: "Arial","Microsoft YaHei","\9ED1\4F53",sans-serif;
+	overflow: hidden;
+}
+.main-page {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	cursor: -webkit-grab;
 }

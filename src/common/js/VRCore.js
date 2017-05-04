@@ -111,4 +111,8 @@ function cleanPage() {
 	clearScene();
 	Event.removeAll();
 }
-export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,resize,initVR,initAudio,createCrossHair};
+function forward(fileName) {
+	cleanPage();
+	require(`bundle-loader!page/${fileName}.js`);
+}
+export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,forward,resize,initVR,initAudio,createCrossHair};

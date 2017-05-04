@@ -52,7 +52,7 @@ class page1 extends VRPage {
 		);
 	}
 	addDirectLight() {
-		// 创建光线
+		// create light
 		WebVR.Scene.add(new THREE.AmbientLight(0xdddddd));
 		let light = new THREE.DirectionalLight( 0xddddcc, 0.3 );
 		light.position.set( 100, 100, 100 );
@@ -80,7 +80,7 @@ class page1 extends VRPage {
 				object.scale.set(0.1,0.1,0.1);
 				let {x,y,z} = object.position;
 				let hover = new TWEEN.Tween(object.position)
-				.to({x:x-20,y:y+150,z:z-80},10000)
+				.to({x:x-100,y:y+200,z:0},10000)
 				.easing(TWEEN.Easing.Sinusoidal.InOut);
 				object.on('gaze',m => {
 					hover.start();

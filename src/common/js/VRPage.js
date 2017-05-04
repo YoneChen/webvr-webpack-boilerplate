@@ -5,7 +5,6 @@ export default class VRPage {
 	constructor(options={}) {
 		WebVR.createScene(options);
 		this.initPage();
-        WebVR.renderStart(this.update);
 	}
 	initPage() {
 		this.bindEvent();
@@ -27,6 +26,7 @@ export default class VRPage {
 		WebVR.LoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();
             setTimeout(() => {
+        		WebVR.renderStart(this.update);
                 this.loaded();
             },100);
 			console.log('finish');

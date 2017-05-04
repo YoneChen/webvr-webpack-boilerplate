@@ -18,6 +18,9 @@ module.exports = {
             "off",
             "tab"
         ],
+        "no-mixed-spaces-and-tabs": [
+            "off"
+        ],
         "linebreak-style": [
             "error",
             "unix"

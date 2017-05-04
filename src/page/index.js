@@ -17,14 +17,14 @@ class Index extends VRPage {
 			index:1,
 			text:'Goto Page1!',
 			callback: () => {
-				require('bundle-loader!page/page1.js');
+				WebVR.forward('page1');
 			}
 		});
 		this.addButton({
 			index:2,
 			text:'Goto Page2!',
 			callback: () => {
-				require('bundle-loader!page/page2.js');
+				WebVR.forward('page2');
 			}
 		});
 		this.addDirectLight();
@@ -115,16 +115,12 @@ class Index extends VRPage {
 			dz = option.radius*Math.cos(option.angle);
 		button.position.set(cx+dx,cy,cz-dz);
 		button.rotation.y = -option.angle;
-		WebVR.Scene.add(button);
 		let x = button.position.x,
 			z = button.position.z;
 		let hover = new TWEEN.Tween(button.position)
 		.to({x:x-hx,z:z+hz},1000)
 		.easing(TWEEN.Easing.Sinusoidal.InOut)
 		.onComplete(() => {
-			WebVR.cleanPage();
-			TWEEN.removeAll();
-			// forward next scene
 			callback();
 		});
 		let hoverback = new TWEEN.Tween(button.position)
@@ -137,6 +133,7 @@ class Index extends VRPage {
 			hover.stop();
 			hoverback.start();
 		});
+		WebVR.Scene.add(button);
 	}
 	update() {
 		TWEEN.update();

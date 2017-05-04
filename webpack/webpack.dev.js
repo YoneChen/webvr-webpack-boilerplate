@@ -22,10 +22,6 @@ module.exports = webpackMerge(webpackConfig,{
 
   },
   plugins: [
-//     new ProvidePlugin({
-//   'window.THREE': 'three'
-// }),
-    
     new DefinePlugin({
       'process.env': {
         NODE_ENV: "'development'"
