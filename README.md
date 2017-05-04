@@ -77,7 +77,8 @@ export default (() => {
 |:-----------|------------:|:------------:|
 | WebVR.Scene       |        THREE.Scene |     global webvr scene     
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
-| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer     
+| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer  
+| WebVR.forward       |        function |     load and change the scene     
 
 ### VRPage instance function
 
