@@ -101,7 +101,11 @@ function clearScene() {
 	for(let i = Scene.children.length - 1; i >= 0; i-- ) {
 		if (Scene.children[i].type === 'PerspectiveCamera') continue;
 		if (Scene.children[i].type === 'Audio') {
-			Scene.children[i].stop();
+			try {
+				Scene.children[i].stop();
+			} catch(err) {
+				// console.log()
+			}
 		}
 		Scene.remove(Scene.children[i]);
 	}
