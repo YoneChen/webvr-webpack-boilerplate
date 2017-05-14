@@ -8,7 +8,7 @@ import ASSET_TEXTURE_SKYBOX from 'assets/texture/360bg.jpg';
 import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 class Index extends VRPage {
 	constructor() {
-		super({domContainer:document.querySelector('.main-page')});
+		super({container:document.querySelector('.webvr-container')});
 	}
 	start() {
 		this.addEnvAudio(ASSET_AUDIO_ENV);
@@ -115,21 +115,22 @@ class Index extends VRPage {
 			dz = option.radius*Math.cos(option.angle);
 		button.position.set(cx+dx,cy,cz-dz);
 		button.rotation.y = -option.angle;
-		let x = button.position.x,
-			z = button.position.z;
-		let hover = new TWEEN.Tween(button.position)
-		.to({x:x-hx,z:z+hz},1000)
+
+		let hover = new TWEEN.Tween(WebVR.CrossHair.scale)
+		.to({x:0.2,y:0.2,z:0.2},1500)
 		.easing(TWEEN.Easing.Sinusoidal.InOut)
 		.onComplete(() => {
 			callback();
 		});
-		let hoverback = new TWEEN.Tween(button.position)
-		.to({x:x,z:z},1000)
+		let hoverback = new TWEEN.Tween(WebVR.CrossHair.scale)
+		.to({x:1,y:1,z:1},200)
 		.easing(TWEEN.Easing.Sinusoidal.InOut);
 		button.on('gaze',m => {
+			button.scale.set(1.2,1.2,1.2);
 			hoverback.stop();
 			hover.start();
 		},m => {
+			button.scale.set(1,1,1);
 			hover.stop();
 			hoverback.start();
 		});

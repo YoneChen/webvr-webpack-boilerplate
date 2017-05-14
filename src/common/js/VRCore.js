@@ -19,11 +19,11 @@ let
 	CrossHair = {instance:'THREE.CrossHair'};
 let isFirstPage = true,Event = {},
 	loopID = 0;
-function createScene({domContainer=document.body,fov=70,far=4000}) {
+function createScene({container=document.body,fov=70,far=4000}) {
 	if(!isFirstPage) return isFirstPage;
 	isFirstPage = !isFirstPage;
-	if (!(domContainer instanceof HTMLElement)) {
-		throw new Error('domContainer is not a HTMLElement!');
+	if (!(container instanceof HTMLElement)) {
+		throw new Error('container is not a HTMLElement!');
 	}
 	CLOCK = new THREE.Clock();
 	// Initialize the scene
@@ -37,7 +37,7 @@ function createScene({domContainer=document.body,fov=70,far=4000}) {
 	Renderer.setSize(window.innerWidth,window.innerHeight);
 	Renderer.shadowMapEnabled = true;
 	Renderer.setPixelRatio(window.devicePixelRatio);
-	domContainer.appendChild(Renderer.domElement);
+	container.appendChild(Renderer.domElement);
 	initVR();
 	initAudio();
 	resize();
@@ -113,6 +113,6 @@ function cleanPage() {
 }
 function forward(fileName) {
 	cleanPage();
-	require(`bundle-loader!page/${fileName}.js`);
+	import(`page/${fileName}.js`);
 }
 export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,forward,resize,initVR,initAudio,createCrossHair};

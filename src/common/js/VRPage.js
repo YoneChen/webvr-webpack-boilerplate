@@ -7,10 +7,10 @@ export default class VRPage {
 		this.initPage();
 	}
 	initPage() {
-		this.bindEvent();
+		this.loadPage();
 		this.start();
 	}
-	bindEvent() {
+	loadPage() {
 		let flag = true;
 		this.loadControl = new LoadControl();
         if (WebVR.Manager.mode === 3) {

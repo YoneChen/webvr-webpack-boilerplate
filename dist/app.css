@@ -47,7 +47,7 @@ body {
 	font-family: "Arial","Microsoft YaHei","\9ED1\4F53",sans-serif;
 	overflow: hidden;
 }
-.main-page {
+.webvr-container {
 	position: absolute;
 	left: 0;
 	right: 0;
