@@ -4,7 +4,6 @@ import VRPage from 'common/js/VRPage';
 import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360_page1.jpg';
-import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 import ASSET_MODEL_BALLON_OBJ from 'assets/model/ballon.obj';
 import ASSET_MODEL_BALLON_MTL from 'assets/model/ballon.mtl';
 
@@ -12,13 +11,11 @@ import 'lib/OBJLoader';
 import 'lib/MTLLoader';
 class page1 extends VRPage {
 	start() {
-		this.addEnvAudio(ASSET_AUDIO_ENV);
 		this.addPanorama(1000, ASSET_TEXTURE_SKYBOX);
 		this.addBallon();
 		this.addDirectLight();
 	}
 	loaded() {
-        this.envSound.play();
 	}
 	addPanorama(radius,path) {
 		// create panorama
@@ -27,29 +24,6 @@ class page1 extends VRPage {
 		let panorama = new THREE.Mesh(geometry,material);
 		WebVR.Scene.add(panorama);
 		return panorama;
-	}
-	addEnvAudio(path) {
-		// instantiate audio object
-		this.envSound = new THREE.Audio( WebVR.AudioListener );
-
-		// add the audio object to the scene
-		WebVR.Scene.add( this.envSound );
-		// instantiate a loader
-		let loader = new THREE.AudioLoader();
-
-		// load a resource
-		loader.load(
-			// resource URL
-			path,
-			// Function when resource is loaded
-			audioBuffer => {
-				// set the audio object buffer to the loaded object
-				this.envSound.setBuffer( audioBuffer );
-				this.envSound.setLoop(true);
-				// play the audio
-				// sound.play();
-			}
-		);
 	}
 	addDirectLight() {
 		// create the enviromental light
