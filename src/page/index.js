@@ -125,6 +125,7 @@ class Index extends VRPage {
 		let hoverback = new TWEEN.Tween(WebVR.CrossHair.scale)
 		.to({x:1,y:1,z:1},200)
 		.easing(TWEEN.Easing.Sinusoidal.InOut);
+		WebVR.Scene.add(button);
 		button.on('gaze',m => {
 			button.scale.set(1.2,1.2,1.2);
 			hoverback.stop();
@@ -134,7 +135,6 @@ class Index extends VRPage {
 			hover.stop();
 			hoverback.start();
 		});
-		WebVR.Scene.add(button);
 	}
 	update() {
 		TWEEN.update();
