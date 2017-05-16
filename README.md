@@ -43,7 +43,7 @@ import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
 	constructor() {
 		// webgl renderer container,default is document.body
-		super({domContainer:document.querySelector('.main-page')});
+		super({container:document.querySelector('.webvr-container')});
 	}
 	start() {
 		let geometry = new THREE.CubeGeometry(5,5,5);
@@ -79,6 +79,7 @@ export default (() => {
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
 | WebVR.Renderer       |        THREE.Renderer |     global webvr renderer  
 | WebVR.forward       |        function |     load and change the scene     
+| WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair  
 
 ### VRPage instance function
 
