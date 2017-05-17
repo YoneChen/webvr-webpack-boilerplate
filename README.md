@@ -4,6 +4,8 @@
 
 ![](http://upload-images.jianshu.io/upload_images/1939855-bc93667d702feed0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+[中文](https://zhuanlan.zhihu.com/p/26907805)
+
 ## Features
 
 * webvr: a webvr boilerplate supporting scenes changing
@@ -53,11 +55,11 @@ class Index extends VRPage {
 		this.box = new THREE.Mesh(geometry,material);
 		this.box.position.set(3,-2,-3);
 		// add gaze eventLisenter
+		WebVR.Scene.add(this.box);
 		this.box.on('gaze',mesh => { // gazeIn trigger
 			mesh.scale.set(1.2,1.2,1.2);
 		},mesh => { // gazeOut trigger
 		});
-		WebVR.Scene.add(box);
 	}
 	loaded() {
         console.log(`${ASSET_TEXTURE_BOX} has been loaded.`);
@@ -96,7 +98,7 @@ It is no need to fetch more html,just fetch the script of page when you need to 
 WebVR.forward('pageFileName');
 /* 2 steps to be excuted in WebVR.forward function
 WebVR.cleanPage(); // clear object3d and events in current page
-require('bundle-loader!page/' + pageFileName + '.js'); // fetch and load the next page
+import(`page/${pageFileName}.js`); // fetch and load the next page
 */
 ```
 
