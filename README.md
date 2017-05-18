@@ -2,7 +2,9 @@
 
 > A webvr multi-pages project for three.js, es6/7, webpack2 and postcss.
 
-![](http://upload-images.jianshu.io/upload_images/1939855-bc93667d702feed0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![](https://pic2.zhimg.com/v2-251229f9ea0b901b1d29bd2aa11a69e9_b.png)
+
+> [中文](https://zhuanlan.zhihu.com/p/26907805)
 
 ## Features
 
@@ -43,7 +45,7 @@ import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
 	constructor() {
 		// webgl renderer container,default is document.body
-		super({domContainer:document.querySelector('.main-page')});
+		super({container:document.querySelector('.webvr-container')});
 	}
 	start() {
 		let geometry = new THREE.CubeGeometry(5,5,5);
@@ -53,11 +55,11 @@ class Index extends VRPage {
 		this.box = new THREE.Mesh(geometry,material);
 		this.box.position.set(3,-2,-3);
 		// add gaze eventLisenter
+		WebVR.Scene.add(this.box);
 		this.box.on('gaze',mesh => { // gazeIn trigger
 			mesh.scale.set(1.2,1.2,1.2);
 		},mesh => { // gazeOut trigger
 		});
-		WebVR.Scene.add(box);
 	}
 	loaded() {
         console.log(`${ASSET_TEXTURE_BOX} has been loaded.`);
@@ -79,6 +81,7 @@ export default (() => {
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
 | WebVR.Renderer       |        THREE.Renderer |     global webvr renderer  
 | WebVR.forward       |        function |     load and change the scene     
+| WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair  
 
 ### VRPage instance function
 
@@ -95,7 +98,7 @@ It is no need to fetch more html,just fetch the script of page when you need to 
 WebVR.forward('pageFileName');
 /* 2 steps to be excuted in WebVR.forward function
 WebVR.cleanPage(); // clear object3d and events in current page
-require('bundle-loader!page/' + pageFileName + '.js'); // fetch and load the next page
+import(`page/${pageFileName}.js`); // fetch and load the next page
 */
 ```
 
