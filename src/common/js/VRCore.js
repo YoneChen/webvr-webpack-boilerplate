@@ -94,6 +94,7 @@ function renderStart(callback) {
 		callback(delta);
 		Controls.update();
 		Manager.render(Scene, Camera);
+		Event.update();
 	};
 	loop();
 }

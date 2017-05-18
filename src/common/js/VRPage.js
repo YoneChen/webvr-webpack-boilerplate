@@ -26,8 +26,8 @@ export default class VRPage {
 		WebVR.LoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();
             setTimeout(() => {
-        		WebVR.renderStart(this.update);
                 this.loaded();
+        		WebVR.renderStart(this.update);
             },100);
 			console.log('finish');
 

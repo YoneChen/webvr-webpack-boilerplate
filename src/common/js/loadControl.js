@@ -8,7 +8,7 @@ export default class LoadControl {
 	static Dom(radius) {
 		return `<svg class="svg-load">
 						<circle cx="50%" cy="50%" r="${radius}"></circle>   
-						<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Loading...</text>
+						<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central">Loading</text>
 					</svg>`.repeat(2);
 	}
 	initDom() {
