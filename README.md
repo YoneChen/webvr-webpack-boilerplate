@@ -102,6 +102,10 @@ import(`page/${pageFileName}.js`); // fetch and load the next page
 */
 ```
 
+## How it work?
+
+[](http://upload-images.jianshu.io/upload_images/1939855-906ca3b5b179b888.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## Need Help?
 
 Ask questions [here](https://github.com/yorkchan94/webvr-webpack2-boilerplate/issues).
