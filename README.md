@@ -13,6 +13,7 @@
 * es6/7: by babel and it's presets and plugins
 * postcss: by postcss-loader
 * webpack2 provides faster compilation
+* glsl: import .glsl files for shaders
 
 ## Installation
 
@@ -117,8 +118,6 @@ PR welcome [here](https://github.com/yorkchan94/webvr-webpack2-boilerplate/pulls
 ## Contributors
 
 YorkChan <yorkchan94@gmail.com>
-
-And thanks to Micooz's project [es6-webpack2-boilerplate](https://github.com/micooz/es6-webpack2-boilerplate)
 
 ## License
 
