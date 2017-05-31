@@ -34,7 +34,7 @@ module.exports = {
       },
 
       {
-      	test: /\.css/,
+      	test: /\.css$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -55,6 +55,11 @@ module.exports = {
       {
         test: /\.(jpg|png|gif|obj|mtl|dae|wav|ogg|eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader',
+      },
+
+      {
+        test: /\.(glsl|vs|fs)$/,
+        loader: 'shader-loader',
       },
 
       {

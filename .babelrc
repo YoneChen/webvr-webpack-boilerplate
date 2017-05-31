@@ -3,5 +3,5 @@
     "latest",
      ["es2015", {"modules": false}]
   ],
-  "plugins":["syntax-dynamic-import"]
+  "plugins":["syntax-async-functions","transform-regenerator","syntax-dynamic-import"]
 }

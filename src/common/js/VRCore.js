@@ -1,7 +1,7 @@
  /*global THREE:true*/
 import 'lib/VRControls';
 import 'lib/VREffect';
-import 'three-onEvent';
+import 'three-onevent';
 // import {addGround,addLight,addObject} from './common/3dUtils'
 import WebVRManager from 'webvr-boilerplate';
 let 
