@@ -44,10 +44,6 @@ import VRPage from 'common/js/VRPage';
 
 import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
-	constructor() {
-		// webgl renderer container,default is document.body
-		super({container:document.querySelector('.webvr-container')});
-	}
 	start() {
 		let geometry = new THREE.CubeGeometry(5,5,5);
 		let material = new THREE.MeshBasicMaterial({ 
@@ -74,14 +70,47 @@ export default (() => {
 })();
 ```
 
+### Init WebVR and Add Routers
+
+```
+import 'common/css/main.css';
+// create routers map 
+WebVR.init([
+    {
+        route: '', // e.g http://127.0.1:9000/
+        path: 'index.js' // src/page/index.js
+    },
+    {
+        route: '1', // e.g http://127.0.1:9000/1
+        path: 'page1.js'
+    },
+    {
+        route: '2', // e.g http://127.0.1:9000/2
+        path: 'page2.js'
+    }
+],document.querySelector('.webvr-container')
+);
+```
+
+## Forward Pages
+It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
+```
+WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
+/* 2 steps to be excuted in WebVR.forward function
+WebVR.cleanPage(); // clear object3d and events in current page
+import(`page/${fileName}.js`); // fetch and load the next page
+*/
+```
+
 ### WebVR API from VRCore.js
 
 | API | type | description |
-|:-----------|------------:|:------------:|
+|:-----------|------------:|:------------:| 
+| WebVR.init       |        function(routerArray,domElement) |     init the router and vrcamera   
+| WebVR.forward       |        function(routeName) |     load and change the scene  
 | WebVR.Scene       |        THREE.Scene |     global webvr scene     
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
-| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer  
-| WebVR.forward       |        function |     load and change the scene     
+| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer      
 | WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair  
 
 ### VRPage instance function
@@ -92,16 +121,6 @@ export default (() => {
 | loaded       |       null |    excute after all the textures,3d models and audio are loaded    
 | update    |     parameter |   excute during each rendering
 
-
-## Forward Pages
-It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
-```
-WebVR.forward('pageFileName');
-/* 2 steps to be excuted in WebVR.forward function
-WebVR.cleanPage(); // clear object3d and events in current page
-import(`page/${pageFileName}.js`); // fetch and load the next page
-*/
-```
 
 ## How it work?
 
