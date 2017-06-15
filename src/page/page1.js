@@ -69,6 +69,4 @@ class page1 extends VRPage {
 		TWEEN.update();
 	}
 }
-export default (() => {
-	return new page1();
-})();
+export default page1;

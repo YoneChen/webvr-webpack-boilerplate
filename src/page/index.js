@@ -1,15 +1,11 @@
  /*global THREE:true*/
  /*global WebVR:true*/
-import 'common/css/main.css';
 import VRPage from 'common/js/VRPage';
 import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360bg.jpg';
 import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 class Index extends VRPage {
-	constructor() {
-		super({container:document.querySelector('.webvr-container')});
-	}
 	start() {
 		this.addEnvAudio(ASSET_AUDIO_ENV);
 		this.addPanorama(1000, ASSET_TEXTURE_SKYBOX);
@@ -17,14 +13,14 @@ class Index extends VRPage {
 			index:1,
 			text:'Goto Page1!',
 			callback: () => {
-				WebVR.forward('page1');
+				WebVR.forward('1');
 			}
 		});
 		this.addButton({
 			index:2,
 			text:'Goto Page2!',
 			callback: () => {
-				WebVR.forward('page2');
+				WebVR.forward('2');
 			}
 		});
 		this.addDirectLight();
@@ -140,6 +136,4 @@ class Index extends VRPage {
 		TWEEN.update();
 	}
 }
-export default (() => {
-	return new Index();
-})();
+export default Index;

@@ -17,11 +17,13 @@ let
 	CLOCK = {instance:'THREE.Clock'},
 	LoaderCount = 0,
 	CrossHair = {instance:'THREE.CrossHair'};
-let isFirstPage = true,Event = {},
+let Event = {},
 	loopID = 0;
-function createScene({container=document.body,fov=70,far=4000}) {
-	if(!isFirstPage) return isFirstPage;
-	isFirstPage = !isFirstPage;
+function init(routers,container,fov,far) {
+	createScene(...Array.prototype.slice.call(arguments,1));
+	VRRouter.createRouter(routers);
+}
+function createScene(container=document.body,fov=70,far=4000) {
 	if (!(container instanceof HTMLElement)) {
 		throw new Error('container is not a HTMLElement!');
 	}
@@ -40,12 +42,65 @@ function createScene({container=document.body,fov=70,far=4000}) {
 	container.appendChild(Renderer.domElement);
 	initVR();
 	initAudio();
-	resize();
+	bindEvent();
 	createCrossHair();
 	Event = new THREE.onEvent(Scene,Camera);
-	return isFirstPage;
 }
-function resize() {
+// create VRRouter to simulate routes
+const VRRouter = {
+	createRouter(routes=[{'':'index.js'}]) {
+		this.routeObj = {};
+		routes.forEach(route => {
+			Object.defineProperty(this.routeObj,route.route,{value:route.path}); 
+		});
+		this.proxyRouter();
+		this.historyProxy();
+	},
+	// when enter url,redirect(fetch and run page script)
+	proxyRouter() {
+		const routeName = this.getCurrentRouteName();
+		const fileName = this.getFileName(routeName);
+		history.replaceState(
+			{
+				routeName: routeName,
+				fileName: fileName
+			},
+			0,this.getCurrentRouteName()
+		);
+		this.fetchFile(fileName);
+	},
+	// fetch and run page script
+	forward(routeName,newtarget = true) {
+		cleanPage();
+		const fileName = this.getFileName(routeName);
+		if (newtarget) {
+			history.pushState({
+				routeName: routeName,
+				fileName: fileName
+			},0,routeName);
+		}
+		this.fetchFile(fileName);
+	},
+	// when go back or go forward,run pre-page script.
+	historyProxy() {
+		window.addEventListener('popstate',e => {
+			const routeName = e.state.routeName;
+			this.forward(routeName,false);
+		},false);
+	},
+	getCurrentRouteName() {
+		return location.pathname.split('/').pop();
+	},
+	getFileName(routeName) {
+		return this.routeObj[routeName] || '';
+	}
+};
+VRRouter.fetchFile = function(fileName) {
+	import(`page/${fileName}`).then(page => {
+		new page.default();
+	});
+};
+function bindEvent() {
 
 	window.addEventListener( 'resize', e => {
 		// justify the renderer when resize the window
@@ -79,16 +134,12 @@ function createCrossHair() {
 	Camera.add( CrossHair );
 }
 function renderStop() {
-	if (loopID !== -1) {
-		window.cancelAnimationFrame(loopID);
-		loopID = -1;
-	}
+	window.cancelAnimationFrame(loopID);
 }
 function renderStart(callback) {
 	// launch the render
 	loopID = 0;
 	let loop = () => {
-		if(loopID === -1) return;
 		loopID = requestAnimationFrame(loop);
 		const delta = CLOCK.getDelta();
 		callback(delta);
@@ -116,8 +167,7 @@ function cleanPage() {
 	clearScene();
 	Event.removeAll();
 }
-function forward(fileName) {
-	cleanPage();
-	import(`page/${fileName}.js`);
+function forward(routeName='') {
+	VRRouter.forward(routeName);
 }
-export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,createScene,LoadingManager,cleanPage,forward,resize,initVR,initAudio,createCrossHair};
+export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,init,VRRouter,createScene,LoadingManager,cleanPage,forward,initVR,initAudio,createCrossHair};

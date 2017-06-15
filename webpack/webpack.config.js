@@ -8,7 +8,7 @@ module.exports = {
 
   entry: {
     'vendor': './src/common/js/vendor.js',
-    'app': './src/page/index.js'
+    'app': './src/index.js'
   },
 
   resolve: {

@@ -3,7 +3,6 @@
 import LoadControl from 'common/js/loadControl';
 export default class VRPage {
 	constructor(options={}) {
-		WebVR.createScene(options);
 		this.initPage();
 	}
 	initPage() {

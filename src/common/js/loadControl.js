@@ -13,14 +13,16 @@ export default class LoadControl {
 	}
 	initDom() {
 		const DOM = LoadControl.Dom(this.radius);
+		const fragment = document.createDocumentFragment();
 		this.dom = document.createElement('section');
 		this.dom.className += 'load-control';
 		this.dom.innerHTML = DOM;
-		document.body.appendChild(this.dom);
-		this.cricle = this.dom.querySelectorAll('circle');
-		this.loadDom = this.dom.querySelectorAll('svg');
+		fragment.appendChild(this.dom);
+		this.cricle = fragment.querySelectorAll('circle');
+		this.loadDom = fragment.querySelectorAll('svg');
 		this.cloneDom = this.loadDom[1];
 		this.singleDom();
+		document.body.appendChild(fragment);
 	}
 	singleDom() {
 		this.cloneDom.style.display = 'none';
