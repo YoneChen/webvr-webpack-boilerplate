@@ -128,15 +128,15 @@ import(`page/${fileName}.js`); // fetch and load the next page
 
 ## Need Help?
 
-Ask questions [here](https://github.com/yorkchan94/webvr-webpack2-boilerplate/issues).
+Ask questions [here](https://github.com/YoneChen/webvr-webpack2-boilerplate/issues).
 
 ## Any advise?
 
-PR welcome [here](https://github.com/yorkchan94/webvr-webpack2-boilerplate/pulls).
+PR welcome [here](https://github.com/YoneChen/webvr-webpack2-boilerplate/pulls).
 
 ## Contributors
 
-YorkChan <yorkchan94@gmail.com>
+Yone Chen <yorkchan94@gmail.com>
 
 ## License
 
