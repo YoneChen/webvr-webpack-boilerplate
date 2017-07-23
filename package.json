@@ -19,12 +19,12 @@
     "postcss",
     "es6"
   ],
-  "author": "YorkChan",
+  "author": "Yone Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YorkChan94/webvr-webpack2-boilerplate/issues"
+    "url": "https://github.com/YoneChen/webvr-webpack2-boilerplate/issues"
   },
-  "homepage": "https://github.com/YorkChan94/webvr-webpack2-boilerplater#readme",
+  "homepage": "https://github.com/YoneChen/webvr-webpack2-boilerplater#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "three": "^0.84.0",
