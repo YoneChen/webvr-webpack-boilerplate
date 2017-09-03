@@ -1,6 +1,6 @@
-# webvr-webpack2-boilerplate
+# webvr-webpack-boilerplate
 
-> A webvr multi-pages project for three.js, es6/7, webpack2 and postcss.
+> A webvr multi-pages project for three.js, es6/7, webpack and postcss.
 
 ![](https://pic2.zhimg.com/v2-251229f9ea0b901b1d29bd2aa11a69e9_b.png)
 
@@ -12,7 +12,7 @@
 * three.js: use as the global varriable
 * es6/7: by babel and it's presets and plugins
 * postcss: by postcss-loader
-* webpack2 provides faster compilation
+* webpack provides faster compilation
 * glsl: import .glsl files for shaders
 
 ## Installation
@@ -126,11 +126,11 @@ WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
 
 ## Need Help?
 
-Ask questions [here](https://github.com/YoneChen/webvr-webpack2-boilerplate/issues).
+Ask questions [here](https://github.com/YoneChen/webvr-webpack-boilerplate/issues).
 
 ## Any advise?
 
-PR welcome [here](https://github.com/YoneChen/webvr-webpack2-boilerplate/pulls).
+PR welcome [here](https://github.com/YoneChen/webvr-webpack-boilerplate/pulls).
 
 ## Contributors
 

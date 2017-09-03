@@ -1,7 +1,7 @@
 {
-  "name": "webvr-webpack2-boilerplate",
-  "version": "1.0.0",
-  "description": "A webvr project for three.js, es6/7, webpack2 and postcss",
+  "name": "webvr-webpack-boilerplate",
+  "version": "2.0.0",
+  "description": "A webvr project for three.js, es6/7, webpack and postcss",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --watch",
     "build": "cross-env NODE_ENV=production webpack --config webpack/webpack.prod.js --progress --display-error-details --color",
@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YorkChan94/webvr-webpack2-boilerplate.git"
+    "url": "git+https://github.com/YorkChan94/webvr-webpack-boilerplate.git"
   },
   "keywords": [
     "webvr",
     "three",
-    "webpack2",
+    "webpack",
     "starter",
     "postcss",
     "es6"
@@ -22,12 +22,12 @@
   "author": "Yone Chen",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YoneChen/webvr-webpack2-boilerplate/issues"
+    "url": "https://github.com/YoneChen/webvr-webpack-boilerplate/issues"
   },
-  "homepage": "https://github.com/YoneChen/webvr-webpack2-boilerplater#readme",
+  "homepage": "https://github.com/YoneChen/webvr-webpack-boilerplater#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "three": "^0.84.0",
+    "three": "^0.86.0",
     "three-onevent": "^1.1.0",
     "tween.js": "^16.6.0",
     "webvr-boilerplate": "0.4.6",
@@ -53,7 +53,7 @@
     "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
-    "html-webpack-plugin": "^2.28.0",
+    "html-webpack-plugin": "^2.30.1",
     "json-loader": "^0.5.4",
     "postcss-cssnext": "^2.10.0",
     "postcss-import": "^9.1.0",
@@ -61,8 +61,8 @@
     "shader-loader": "^1.3.0",
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1",
+    "webpack": "^3.4.1",
+    "webpack-dev-server": "^2.6.1",
     "webpack-merge": "^4.0.0"
   }
 }
