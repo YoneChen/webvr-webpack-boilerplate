@@ -65,9 +65,7 @@ class Index extends VRPage {
 		this.box.rotation.y += 0.05;
 	}
 }
-export default (() => {
-	return new Index();
-})();
+export default Index;
 ```
 
 ### Init WebVR and Add Routers
@@ -96,10 +94,10 @@ WebVR.init([
 It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
 ```
 WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
-/* 2 steps to be excuted in WebVR.forward function
-WebVR.cleanPage(); // clear object3d and events in current page
-import(`page/${fileName}.js`); // fetch and load the next page
-*/
+/** 2 steps to be excuted in WebVR.forward function
+* WebVR.cleanPage(); // clear object3d and events in current page
+* import(`page/${fileName}.js`); // fetch and load the next page
+** /
 ```
 
 ### WebVR API from VRCore.js
