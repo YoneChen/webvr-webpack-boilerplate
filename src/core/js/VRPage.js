@@ -1,6 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
-import LoadControl from 'common/js/loadControl';
+import LoadControl from 'core/js/loadControl';
 export default class VRPage {
 	constructor(options={}) {
 		this.initPage();
@@ -12,7 +12,7 @@ export default class VRPage {
 	loadPage() {
 		let flag = true;
 		this.loadControl = new LoadControl();
-        if (WebVR.Manager.mode === 3) {
+        if (WebVR.Display && WebVR.Display.isPresenting) {
             this.loadControl.doubleDom();
         }
 		WebVR.LoadingManager = THREE.DefaultLoadingManager;
@@ -26,7 +26,7 @@ export default class VRPage {
 			this.loadControl.loadedAll();
             setTimeout(() => {
                 this.loaded();
-        		WebVR.renderStart(this.update);
+        		WebVR.renderStart(this.update.bind(this));
             },100);
 			console.log('finish');
 
@@ -35,6 +35,6 @@ export default class VRPage {
 	start() {
 	}
 	loaded() {}
-	update(delta) {
+	update() {
 	}
 }

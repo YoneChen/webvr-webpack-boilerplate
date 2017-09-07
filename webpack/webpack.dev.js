@@ -34,6 +34,7 @@ module.exports = webpackMerge(webpackConfig,{
     host: 'localhost',
     port: 9000,
     open: true,
+    openPage: '',
     historyApiFallback: true,
     watchOptions: {
       aggregateTimeout: 300,

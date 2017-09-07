@@ -1,6 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
-import VRPage from 'common/js/VRPage';
+import VRPage from 'core/js/VRPage';
 import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360_page1.jpg';

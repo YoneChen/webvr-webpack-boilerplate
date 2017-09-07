@@ -40,7 +40,7 @@ This will generator minified scripts to `dist/`.
 Here comes the basic script to create a webvr page.
 See more pages in `src/page/*.js` .
 ```
-import VRPage from 'common/js/VRPage';
+import VRPage from 'core/js/VRPage';
 
 import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
@@ -71,7 +71,6 @@ export default Index;
 ### Init WebVR and Add Routers
 
 ```
-import 'common/css/main.css';
 // create routers map 
 WebVR.init([
     {

@@ -1,0 +1,15 @@
+.vr-button {
+    position: fixed;
+    right: 16px;
+    bottom: 16px;
+    width: 56px;
+    height: 56px;
+    background-image: url('vr-off.svg');
+    background-size: 100%;
+    background-position: center;
+    cursor: pointer;
+    z-index: 2000;
+}
+.vr-button.on {
+    background-image: url('vr-on.svg');
+}

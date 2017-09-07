@@ -4,7 +4,7 @@ module.exports = {
     'postcss-cssnext': {
       browsers: ['last 2 versions', '> 5%'],
     },
-    'cssnano': { reduceIdents: false}
+    'cssnano': { reduceIdents: false, zindex: false }
     // 'precss': {}
   },
 };

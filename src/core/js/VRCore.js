@@ -1,24 +1,18 @@
  /*global THREE:true*/
-import 'lib/VRControls';
-import 'lib/VREffect';
 import 'three-onevent';
-// import {addGround,addLight,addObject} from './common/3dUtils'
-import WebVRManager from 'webvr-boilerplate';
+import 'core/css/main.css';
+import VRButton from './VRButton';
 let 
 	//public props
-	Scene = {instance:'THREE.Scene'},
-	Camera = {instance:'THREE.PerspectiveCamera'},
-	Renderer = {instance:'THREE.WebGLRenderer'},
-	Effect = {instance:'THREE.VREffect'},
-	Controls = {instance:'THREE.Controls'},
-	Manager = {instance:'THREE.Manager'},
-	LoadingManager = {instance:'THREE.LoadingManager'},
-	AudioListener = {instance:'THREE.AudioListener'},
-	CLOCK = {instance:'THREE.Clock'},
+	Scene, // THREE.Scene
+	Camera, // THREE.PerspectiveCamera
+	Renderer, // THREE.WebGLRenderer
+	LoadingManager, // THREE.LoadingManager
+	AudioListener, // THREE.AudioListener
 	LoaderCount = 0,
-	CrossHair = {instance:'THREE.CrossHair'};
+	CrossHair; // THREE.CrossHair
 let Event = {},
-	loopID = 0;
+	Display = {};
 function init(routers,container,fov,far) {
 	createScene(...Array.prototype.slice.call(arguments,1));
 	VRRouter.createRouter(routers);
@@ -27,7 +21,6 @@ function createScene(container=document.body,fov=70,far=4000) {
 	if (!(container instanceof HTMLElement)) {
 		throw new Error('container is not a HTMLElement!');
 	}
-	CLOCK = new THREE.Clock();
 	// Initialize the scene
 	Scene = new THREE.Scene();
 	// Initialize the camera
@@ -62,8 +55,8 @@ const VRRouter = {
 		const fileName = this.getFileName(routeName);
 		history.replaceState(
 			{
-				routeName: routeName,
-				fileName: fileName
+				routeName,
+				fileName
 			},
 			0,this.getCurrentRouteName()
 		);
@@ -75,8 +68,8 @@ const VRRouter = {
 		const fileName = this.getFileName(routeName);
 		if (newtarget) {
 			history.pushState({
-				routeName: routeName,
-				fileName: fileName
+				routeName,
+				fileName
 			},0,routeName);
 		}
 		this.fetchFile(fileName);
@@ -106,15 +99,17 @@ function bindEvent() {
 		// justify the renderer when resize the window
 		Camera.aspect = window.innerWidth / window.innerHeight;
 		Camera.updateProjectionMatrix();
-		Effect.setSize(window.innerWidth, window.innerHeight);
+		Renderer.setSize(window.innerWidth, window.innerHeight);
 	}, false );
 }
 function initVR() {
-	// Initialize VREffect and VRControl
-	Effect = new THREE.VREffect(Renderer);
-	Controls = new THREE.VRControls(Camera);
-	// Initialize the WebVR manager.
-	Manager = new WebVRManager(Renderer, Effect);
+	Renderer.vr.enabled = true;
+	// get instance of VRDisplay
+	navigator.getVRDisplays().then( display => {
+		Display = display[0];
+		Renderer.vr.setDevice(Display);
+		VRButton.init(Renderer.domElement.parentNode,Display,Renderer);
+	}).catch(err => console.warn(err));
 }
 function initAudio() {
 	// instantiate a listener
@@ -134,20 +129,14 @@ function createCrossHair() {
 	Camera.add( CrossHair );
 }
 function renderStop() {
-	window.cancelAnimationFrame(loopID);
+	Renderer.dispose();
 }
 function renderStart(callback) {
-	// launch the render
-	loopID = 0;
-	let loop = () => {
-		loopID = requestAnimationFrame(loop);
-		const delta = CLOCK.getDelta();
-		callback(delta);
-		Controls.update();
-		Manager.render(Scene, Camera);
+	Renderer.animate(function() {
+		callback();
+		Renderer.render(Scene, Camera);
 		Event.update();
-	};
-	loop();
+	});
 }
 function clearScene() {
 	for(let i = Scene.children.length - 1; i >= 0; i-- ) {
@@ -170,4 +159,5 @@ function cleanPage() {
 function forward(routeName='') {
 	VRRouter.forward(routeName);
 }
-export {Scene,Camera,Renderer,Effect,Controls,Manager,AudioListener,CrossHair,CLOCK,renderStart,renderStop,LoaderCount,init,VRRouter,createScene,LoadingManager,cleanPage,forward,initVR,initAudio,createCrossHair};
+
+export {Scene,Camera,Renderer,AudioListener,CrossHair,renderStart,renderStop,LoaderCount,init,VRRouter,createScene,LoadingManager,cleanPage,forward,initVR,initAudio,createCrossHair,Display};

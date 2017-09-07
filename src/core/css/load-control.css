@@ -9,7 +9,7 @@
 	justify-content: space-around;
 	align-items: center;
 	background-color: #333;
-	z-index: 10000;
+	z-index: 1000;
 }
 .svg-load {
 	width: 150px;
@@ -20,8 +20,6 @@
 		stroke: #00aadd;
 		stroke-width: 2px;
 		display: none;
-		// transform: rotate(-90deg);
-  //   	transform-origin: 50%;
 	}
 .svg-load text {
 		fill: #fff;

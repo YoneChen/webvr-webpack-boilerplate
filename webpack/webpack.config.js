@@ -3,11 +3,12 @@ const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
+const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 
 module.exports = {
 
   entry: {
-    'vendor': './src/common/js/vendor.js',
+    'vendor': './src/core/js/vendor.js',
     'app': './src/index.js'
   },
 
@@ -15,7 +16,7 @@ module.exports = {
 
     extensions: ['.js', '.css','*'],
     alias: {
-    	common: path.resolve(__dirname,'../src/common/'),
+    	core: path.resolve(__dirname,'../src/core/'),
     	page: path.resolve(__dirname,'../src/page/'),
     	assets: path.resolve(__dirname,'../src/assets/'),
     	lib: path.resolve(__dirname,'../src/lib/')
@@ -78,8 +79,9 @@ module.exports = {
     }),
     new ProvidePlugin({
       'THREE': 'three',
-      'WebVR':path.resolve(__dirname,'../src/common/js/VRCore.js')
+      'WebVR':path.resolve(__dirname,'../src/core/js/VRCore.js')
     }),
+    new ModuleConcatenationPlugin(),
     new ExtractTextPlugin('[name].css'),
     new HtmlWebpackPlugin({
       inject: true,

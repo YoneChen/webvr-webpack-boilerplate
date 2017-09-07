@@ -1,5 +1,4 @@
 /*global WebVR:true*/
-import 'common/css/main.css';
 // create routers map 
 WebVR.init([
     {
