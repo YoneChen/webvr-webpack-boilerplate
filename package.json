@@ -1,6 +1,6 @@
 {
   "name": "webvr-webpack-boilerplate",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A webvr project for three.js, es6/7, webpack and postcss",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --watch",
@@ -30,7 +30,6 @@
     "three": "^0.86.0",
     "three-onevent": "^1.1.0",
     "tween.js": "^16.6.0",
-    "webvr-boilerplate": "0.4.6",
     "webvr-polyfill": "^0.9.26"
   },
   "devDependencies": {
