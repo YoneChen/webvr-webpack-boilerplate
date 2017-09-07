@@ -1,10 +1,12 @@
 sudo: required
 language: node_js
 node_js:
-  - 5
   - 6
   - 7
   - node
+cache:
+  directories:
+    - node_modules
 install:
   - npm i -g yarn && yarn
   - npm i -g webpack
