@@ -30,7 +30,7 @@
     "three": "^0.86.0",
     "three-onevent": "^1.1.0",
     "tween.js": "^16.6.0",
-    "webvr-polyfill": "^0.9.26"
+    "webvr-polyfill": "^0.9.36"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.6",

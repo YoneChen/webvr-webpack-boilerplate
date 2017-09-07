@@ -7,6 +7,7 @@ node_js:
   - node
 install:
   - npm i -g yarn && yarn
+  - npm i -g webpack
   - yarn install
 script:
-  - yarn build
+  - yarn run build
