@@ -153,6 +153,7 @@ function clearScene() {
 }
 function cleanPage() {
 	renderStop();
+	Display.resetPose();
 	clearScene();
 	Event.removeAll();
 }
