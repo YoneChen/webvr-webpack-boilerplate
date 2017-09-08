@@ -73,10 +73,6 @@ module.exports = {
   },
 
   plugins: [
-    new CommonsChunkPlugin({
-      name: ['app', 'vendor'],
-      minChunks: Infinity
-    }),
     new ProvidePlugin({
       'THREE': 'three',
       'WebVR':path.resolve(__dirname,'../src/core/js/VRCore.js')

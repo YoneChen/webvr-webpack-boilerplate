@@ -119,7 +119,7 @@ function initAudio() {
 	Camera.add( AudioListener );
 }
 function createCrossHair() {
-	// 创建准心
+	// create crosshair
 	CrossHair = new THREE.Mesh(new THREE.RingGeometry( 0.02, 0.03, 32 ),new THREE.MeshBasicMaterial( {
 		color: 0xffffff,
 		opacity: 0.5,

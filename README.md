@@ -111,6 +111,7 @@ WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
 | WebVR.Renderer       |        THREE.Renderer |     global webvr renderer      
 | WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair  
+| WebVR.Display       |        VRDisplay |     vrdispaly[0]  
 
 ### VRPage instance function
 
