@@ -1,17 +1,16 @@
- /*global THREE:true*/
-import 'three-onevent';
+ /*global THREE:true*/ 
+ /*global TWEEN:true*/
 import 'core/css/main.css';
 import VRButton from './VRButton';
+import GazeEvent from 'gaze-event';
 let 
 	//public props
 	Scene, // THREE.Scene
 	Camera, // THREE.PerspectiveCamera
 	Renderer, // THREE.WebGLRenderer
-	LoadingManager, // THREE.LoadingManager
 	AudioListener, // THREE.AudioListener
-	LoaderCount = 0,
 	CrossHair; // THREE.CrossHair
-let Event = {},
+let Gazer = {},
 	Display = {};
 function init(routers,container,fov,far) {
 	createScene(...Array.prototype.slice.call(arguments,1));
@@ -30,14 +29,14 @@ function createScene(container=document.body,fov=70,far=4000) {
 	// Initialize the renderer
 	Renderer = new THREE.WebGLRenderer({ antialias: true } );
 	Renderer.setSize(window.innerWidth,window.innerHeight);
-	Renderer.shadowMapEnabled = true;
+	Renderer.shadowMap.enabled = true;
 	Renderer.setPixelRatio(window.devicePixelRatio);
 	container.appendChild(Renderer.domElement);
 	initVR();
 	initAudio();
 	bindEvent();
-	createCrossHair();
-	Event = new THREE.onEvent(Scene,Camera);
+	Gazer = new GazeEvent();
+	addCrossHair();
 }
 // create VRRouter to simulate routes
 const VRRouter = {
@@ -118,24 +117,52 @@ function initAudio() {
 	// add the listener to the camera
 	Camera.add( AudioListener );
 }
-function createCrossHair() {
+function addCrossHair() {
 	// create crosshair
-	CrossHair = new THREE.Mesh(new THREE.RingGeometry( 0.02, 0.03, 32 ),new THREE.MeshBasicMaterial( {
+	const geometry1 = new THREE.CircleGeometry(0.002, 16);
+	const material = new THREE.MeshBasicMaterial({
 		color: 0xffffff,
 		opacity: 0.5,
-		transparent: true
-	}));
-	CrossHair.position.z = -2;
+		side: THREE.DoubleSide,
+		transparent: true,
+		needsUpdate: true
+	});
+	const pointer = new THREE.Mesh(geometry1, material);
+	pointer.name = 'pointer';
+	const geometry2 = new THREE.Geometry();
+	const loader = new THREE.Mesh(geometry2, material);
+	loader.rotation.set(0, Math.PI, Math.PI / 2);
+	loader.name = 'loader';
+	CrossHair = new THREE.Group();
+	CrossHair.add(pointer);
+	CrossHair.add(loader);
+	CrossHair.position.z = -0.5;
+	CrossHair.matrixAutoUpdate = false;
+	CrossHair.updateMatrix();
+	CrossHair.animate = {};
+	CrossHair.animate.loader = new TWEEN.Tween({ thetaLength: 0 })
+		.to({ thetaLength: 2 * Math.PI }, Gazer.delayTime)
+		.onUpdate(({ thetaLength }) => {
+			loader.geometry = new THREE.RingGeometry(0.005, 0.007, 32, 8, 0, thetaLength);
+			loader.geometry.verticesNeedUpdate = true;
+		})
+		.onStop(function () {
+			this.thetaLength = 0;
+			loader.geometry = new THREE.Geometry();
+		});
 	Camera.add( CrossHair );
 }
 function renderStop() {
 	Renderer.dispose();
+	Gazer.removeAll();
+	TWEEN.removeAll();
 }
 function renderStart(callback) {
 	Renderer.animate(function() {
 		callback();
+		Gazer.update(Camera);
+		TWEEN.update();
 		Renderer.render(Scene, Camera);
-		Event.update();
 	});
 }
 function clearScene() {
@@ -155,10 +182,10 @@ function cleanPage() {
 	renderStop();
 	Display.resetPose();
 	clearScene();
-	Event.removeAll();
+	Gazer.removeAll();
 }
 function forward(routeName='') {
 	VRRouter.forward(routeName);
 }
 
-export {Scene,Camera,Renderer,AudioListener,CrossHair,renderStart,renderStop,LoaderCount,init,VRRouter,createScene,LoadingManager,cleanPage,forward,initVR,initAudio,createCrossHair,Display};
+export {Scene,Camera,Renderer,AudioListener,CrossHair,renderStart,renderStop,init,VRRouter,createScene,cleanPage,forward,initVR,initAudio,addCrossHair,Display,Gazer};

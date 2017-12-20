@@ -1,7 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
 import VRPage from 'core/js/VRPage';
-import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360bg.jpg';
 import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
@@ -35,7 +34,6 @@ class Index extends VRPage {
 		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(path),side:THREE.BackSide } );
 		let panorama = new THREE.Mesh(geometry,material);
 		WebVR.Scene.add(panorama);
-		return panorama;
 	}
 	addEnvAudio(path) {
 		// instantiate audio object
@@ -112,28 +110,21 @@ class Index extends VRPage {
 		button.position.set(cx+dx,cy,cz-dz);
 		button.rotation.y = -option.angle;
 
-		let hover = new TWEEN.Tween(WebVR.CrossHair.scale)
-		.to({x:0.2,y:0.2,z:0.2},1500)
-		.easing(TWEEN.Easing.Sinusoidal.InOut)
-		.onComplete(() => {
-			callback();
-		});
-		let hoverback = new TWEEN.Tween(WebVR.CrossHair.scale)
-		.to({x:1,y:1,z:1},200)
-		.easing(TWEEN.Easing.Sinusoidal.InOut);
 		WebVR.Scene.add(button);
-		button.on('gaze',m => {
+		WebVR.Gazer.on(button,'gazeEnter',m => {
 			button.scale.set(1.2,1.2,1.2);
-			hoverback.stop();
-			hover.start();
-		},m => {
+			WebVR.CrossHair.animate.loader.start();
+		});
+		WebVR.Gazer.on(button,'gazeLeave',m => {
 			button.scale.set(1,1,1);
-			hover.stop();
-			hoverback.start();
+			WebVR.CrossHair.animate.loader.stop();
+		});
+		WebVR.Gazer.on(button,'gazeWait',m => {
+			WebVR.CrossHair.animate.loader.stop();
+			callback();
 		});
 	}
 	update() {
-		TWEEN.update();
 	}
 }
 export default Index;

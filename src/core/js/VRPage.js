@@ -3,6 +3,7 @@
 import LoadControl from 'core/js/loadControl';
 export default class VRPage {
 	constructor(options={}) {
+		this.LoaderCount = 0;
 		this.initPage();
 	}
 	initPage() {
@@ -15,14 +16,13 @@ export default class VRPage {
         if (WebVR.Display && WebVR.Display.isPresenting) {
             this.loadControl.doubleDom();
         }
-		WebVR.LoadingManager = THREE.DefaultLoadingManager;
-		WebVR.LoadingManager.onProgress = (url, itemsLoaded, itemsTotal ) => {
-			if(flag) WebVR.LoaderCount = itemsTotal - WebVR.LoaderCount;
+		THREE.DefaultLoadingManager.onProgress = (url, itemsLoaded, itemsTotal ) => {
+			if(flag) this.LoaderCount = itemsTotal - this.LoaderCount;
 			flag = false;
-			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(WebVR.LoaderCount);
+			if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(this.LoaderCount);
 			this.loadControl.loadItem(); 
 		};
-		WebVR.LoadingManager.onLoad = () => {
+		THREE.DefaultLoadingManager.onLoad = () => {
 			this.loadControl.loadedAll();
             setTimeout(() => {
                 this.loaded();

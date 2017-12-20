@@ -1,18 +1,15 @@
  /*global THREE:true*/
  /*global WebVR:true*/
+ /*global TWEEN:true*/
 import VRPage from 'core/js/VRPage';
-import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360_page1.jpg';
-import ASSET_MODEL_BALLON_OBJ from 'assets/model/ballon.obj';
-import ASSET_MODEL_BALLON_MTL from 'assets/model/ballon.mtl';
 
 import 'lib/OBJLoader';
 import 'lib/MTLLoader';
 class page1 extends VRPage {
 	start() {
 		this.addPanorama(1000, ASSET_TEXTURE_SKYBOX);
-		this.addBallon();
 		this.addDirectLight();
 	}
 	loaded() {
@@ -42,31 +39,7 @@ class page1 extends VRPage {
 		WebVR.Scene.add( light );
 		return light;
 	}
-	addBallon() {
-		let mtlLoader = new THREE.MTLLoader();
-		mtlLoader.load(ASSET_MODEL_BALLON_MTL, materials => {
-
-			materials.preload();
-			let objLoader = new THREE.OBJLoader();
-			objLoader.setMaterials( materials );
-			objLoader.load(ASSET_MODEL_BALLON_OBJ,  object => {
-				object.position.set(20,20,-100);
-				object.scale.set(0.1,0.1,0.1);
-				let {x,y,z} = object.position;
-				let hover = new TWEEN.Tween(object.position)
-				.to({x:x-100,y:y+200,z:0},10000)
-				.easing(TWEEN.Easing.Sinusoidal.InOut);
-				object.on('gaze',m => {
-					hover.start();
-				});
-				WebVR.Scene.add( object );
-
-			});
-
-		});
-	}
 	update() {
-		TWEEN.update();
 	}
 }
 export default page1;

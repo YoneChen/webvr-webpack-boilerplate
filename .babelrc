@@ -1,7 +1,19 @@
 {
   "presets": [
-    "latest",
-     ["es2015", {"modules": false}]
+    ["env", {
+      "targets": {
+        "chrome": 40
+      },
+      "modules": false,
+      "loose": true
+    }]
   ],
-  "plugins":["syntax-async-functions","transform-regenerator","syntax-dynamic-import"]
+  "plugins":[
+    "transform-runtime",
+    "transform-async-generator-functions",
+    "transform-function-bind",
+    "transform-class-properties",
+    "transform-object-rest-spread",
+    "syntax-dynamic-import"
+  ]
 }

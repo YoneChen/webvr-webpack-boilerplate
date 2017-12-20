@@ -75,6 +75,7 @@ module.exports = {
   plugins: [
     new ProvidePlugin({
       'THREE': 'three',
+      'TWEEN': '@tweenjs/tween.js',
       'WebVR':path.resolve(__dirname,'../src/core/js/VRCore.js')
     }),
     new ModuleConcatenationPlugin(),

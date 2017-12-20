@@ -1,7 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
 import VRPage from 'core/js/VRPage';
-import TWEEN from 'tween.js';
 
 import ASSET_TEXTURE_SKYBOX from 'assets/texture/360_page2.jpg';
 import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
@@ -63,7 +62,6 @@ class page2 extends VRPage {
 		return light;
 	}
 	update() {
-		TWEEN.update();
 	}
 }
 export default page2;
