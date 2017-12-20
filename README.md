@@ -41,7 +41,7 @@ This will generator minified scripts to `dist/`.
 
 Here comes the basic script to create a webvr page.
 See more pages in `src/page/*.js` .
-```
+```javascript
 import VRPage from 'core/js/VRPage';
 
 import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
@@ -72,7 +72,7 @@ export default Index;
 
 ### Init WebVR and Add Routers
 
-```
+```javascript
 // create routers map 
 WebVR.init([
     {
@@ -93,7 +93,7 @@ WebVR.init([
 
 ## Forward Pages
 It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
-```
+```javascript
 WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
 /** 2 steps to be excuted in WebVR.forward function
 * WebVR.cleanPage(); // clear object3d and events in current page
