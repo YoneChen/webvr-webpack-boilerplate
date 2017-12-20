@@ -46,26 +46,26 @@ import VRPage from 'core/js/VRPage';
 
 import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
-	start() {
-		let geometry = new THREE.CubeGeometry(5,5,5);
-		let material = new THREE.MeshBasicMaterial({ 
-			map: new THREE.TextureLoader().load(ASSET_TEXTURE_BOX) 
-		});
-		this.box = new THREE.Mesh(geometry,material);
-		this.box.position.set(3,-2,-3);
-		// add gaze eventLisenter
-		WebVR.Scene.add(this.box);
-		this.box.on('gaze',mesh => { // gazeIn trigger
-			mesh.scale.set(1.2,1.2,1.2);
-		},mesh => { // gazeOut trigger
-		});
-	}
-	loaded() {
-        console.log(`${ASSET_TEXTURE_BOX} has been loaded.`);
-	}
-	update(delta) {
-		this.box.rotation.y += 0.05;
-	}
+  start() {
+    const geometry = new THREE.CubeGeometry(5,5,5);
+    const material = new THREE.MeshBasicMaterial({ 
+      map: new THREE.TextureLoader().load(ASSET_TEXTURE_BOX) 
+    });
+    this.box = new THREE.Mesh(geometry,material);
+    this.box.position.set(3,-2,-3);
+    // add gaze eventLisenter
+    WebVR.Scene.add(this.box);
+    this.box.on('gaze',mesh => { // gazeIn trigger
+      mesh.scale.set(1.2,1.2,1.2);
+    },mesh => { // gazeOut trigger
+    });
+  }
+  loaded() {
+    console.log(`${ASSET_TEXTURE_BOX} has been loaded.`);
+  }
+  update(delta) {
+    this.box.rotation.y += 0.05;
+  }
 }
 export default Index;
 ```
@@ -75,18 +75,18 @@ export default Index;
 ```javascript
 // create routers map 
 WebVR.init([
-    {
-        route: '', // e.g http://127.0.1:9000/
-        path: 'index.js' // src/page/index.js
-    },
-    {
-        route: '1', // e.g http://127.0.1:9000/1
-        path: 'page1.js'
-    },
-    {
-        route: '2', // e.g http://127.0.1:9000/2
-        path: 'page2.js'
-    }
+  {
+    route: '', // e.g http://127.0.1:9000/
+    path: 'index.js' // src/page/index.js
+  },
+  {
+    route: '1', // e.g http://127.0.1:9000/1
+    path: 'page1.js'
+  },
+  {
+    route: '2', // e.g http://127.0.1:9000/2
+    path: 'page2.js'
+  }
 ],document.querySelector('.webvr-container')
 );
 ```
@@ -95,7 +95,7 @@ WebVR.init([
 It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
 ```javascript
 WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
-/** 2 steps to be excuted in WebVR.forward function
+/** 2 steps will be excuted by default in WebVR.forward function
 * WebVR.cleanPage(); // clear object3d and events in current page
 * import(`page/${fileName}.js`); // fetch and load the next page
 ** /
