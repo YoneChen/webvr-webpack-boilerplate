@@ -27,6 +27,7 @@
   "homepage": "https://github.com/YoneChen/webvr-webpack-boilerplater#readme",
   "dependencies": {
     "@tweenjs/tween.js": "^17.1.1",
+    "cannon": "^0.6.2",
     "gaze-event": "^2.0.1",
     "three": "^0.86.0",
     "webvr-polyfill": "^0.9.36"

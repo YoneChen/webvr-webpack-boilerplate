@@ -3,7 +3,7 @@
  /*global TWEEN:true*/
 import VRPage from 'core/js/VRPage';
 
-// import ASSET_TEXTURE_SKYBOX from 'assets/texture/360_page1.jpg';
+import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 import ASSET_MODEL_HABITAT_OBJ from 'assets/model/Habitat/Habitat.obj';
 import ASSET_MODEL_HABITAT_MTL from 'assets/model/Habitat/Habitat.mtl';
 
@@ -11,12 +11,38 @@ import 'lib/OBJLoader';
 import 'lib/MTLLoader';
 class page1 extends VRPage {
 	start() {
+		this.addEnvAudio(ASSET_AUDIO_ENV);
 		this.addSky(1000,0xffffff);
 		this.addHabitat();
 		this.addDirectLight();
 		this.addFog();
 	}
 	loaded() {
+		// play the sound
+        this.envSound.play();
+	}
+	addEnvAudio(path) {
+		// instantiate audio object
+		this.envSound = new THREE.Audio( WebVR.AudioListener );
+
+		// add the audio object to the scene
+		WebVR.Scene.add( this.envSound );
+		// instantiate a loader
+		let loader = new THREE.AudioLoader();
+
+		// load a resource
+		loader.load(
+			// resource URL
+			path,
+			// Function when resource is loaded
+			audioBuffer => {
+				// set the audio object buffer to the loaded object
+				this.envSound.setBuffer( audioBuffer );
+				this.envSound.setLoop(true);
+				// play the audio
+				// sound.play();
+			}
+		);
 	}
 	addSky(radius,color) {
 		// create panorama
