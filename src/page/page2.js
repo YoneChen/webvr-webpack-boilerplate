@@ -19,7 +19,6 @@ class page2 extends VRPage {
 		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(path),side:THREE.BackSide } );
 		let panorama = new THREE.Mesh(geometry,material);
 		WebVR.Scene.add(panorama);
-		return panorama;
 	}
 	addEnvAudio(path) {
 		// instantiate audio object

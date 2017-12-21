@@ -2,6 +2,7 @@ const path = require('path');
 const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
 
@@ -56,6 +57,9 @@ module.exports = {
       {
         test: /\.(jpg|png|gif|obj|mtl|dae|wav|ogg|eot|svg|ttf|woff|woff2)$/,
         loader: 'file-loader',
+        options: {
+          name: '[name].[ext]'
+        }
       },
 
       {
@@ -80,6 +84,13 @@ module.exports = {
     }),
     new ModuleConcatenationPlugin(),
     new ExtractTextPlugin('[name].css'),
+    new CopyWebpackPlugin([
+      // {output}/file.txt
+      { 
+        from: path.resolve(__dirname,'../src/assets/model'),
+        ignore: ['*.mtl','*.dae','*.obj']
+    }
+    ]),
     new HtmlWebpackPlugin({
       inject: true,
       template: path.resolve(__dirname, '../src/index.html'),

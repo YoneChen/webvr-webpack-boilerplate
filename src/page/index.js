@@ -30,9 +30,9 @@ class Index extends VRPage {
 	}
 	addPanorama(radius,path) {
 		// create panorama
-		let geometry = new THREE.SphereGeometry(radius,50,50);
-		let material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(path),side:THREE.BackSide } );
-		let panorama = new THREE.Mesh(geometry,material);
+		const geometry = new THREE.SphereGeometry(radius,50,50);
+		const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(path),side:THREE.BackSide } );
+		const panorama = new THREE.Mesh(geometry,material);
 		WebVR.Scene.add(panorama);
 	}
 	addEnvAudio(path) {
