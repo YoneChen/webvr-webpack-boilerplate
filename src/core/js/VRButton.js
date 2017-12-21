@@ -5,7 +5,7 @@ const VRButton = {
         const button = document.createElement('div');
         button.classList.add('vr-button','on');
         container.appendChild(button);
-		if ( display ) {
+		if ( display && display.displayName !== 'Mouse and Keyboard VRDisplay (webvr-polyfill)') {
 			button.addEventListener('click', e => {
                 e.preventDefault();
 				display.isPresenting ? display.exitPresent() : display.requestPresent( [ { source: renderer.domElement } ] );
