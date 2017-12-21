@@ -84,6 +84,10 @@ module.exports = {
     }),
     new ModuleConcatenationPlugin(),
     new ExtractTextPlugin('[name].css'),
+    new CommonsChunkPlugin({
+      name: ['app', 'vendor'],
+      minChunks: Infinity
+    }),
     new CopyWebpackPlugin([
       // {output}/file.txt
       { 
