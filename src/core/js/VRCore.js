@@ -155,9 +155,9 @@ function addCrossHair() {
 	Camera.add( CrossHair );
 }
 function renderStop() {
+	Renderer.dispose();
 	Gazer.removeAll();
 	TWEEN.removeAll();
-	Renderer.dispose();
 }
 function renderStart(callback) {
 	Renderer.animate(function() {
@@ -184,7 +184,6 @@ function cleanPage() {
 	renderStop();
 	Display.resetPose();
 	clearScene();
-	Gazer.removeAll();
 }
 function forward(routeName='') {
 	VRRouter.forward(routeName);
