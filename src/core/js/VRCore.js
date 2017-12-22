@@ -140,22 +140,24 @@ function addCrossHair() {
 	CrossHair.matrixAutoUpdate = false;
 	CrossHair.updateMatrix();
 	CrossHair.animate = {};
-	CrossHair.animate.loader = new TWEEN.Tween({ thetaLength: 0 })
+	// create crosshair animation
+	let loaderAnimation = () => new TWEEN.Tween({ thetaLength: 0 })
 		.to({ thetaLength: 2 * Math.PI }, Gazer.delayTime)
 		.onUpdate(({ thetaLength }) => {
 			loader.geometry = new THREE.RingGeometry(0.005, 0.007, 32, 8, 0, thetaLength);
 			loader.geometry.verticesNeedUpdate = true;
 		})
-		.onStop(function () {
-			this.thetaLength = 0;
+		.onStop(() => {
 			loader.geometry = new THREE.Geometry();
+			CrossHair.animate.loader = loaderAnimation();
 		});
+	CrossHair.animate.loader = loaderAnimation();
 	Camera.add( CrossHair );
 }
 function renderStop() {
-	Renderer.dispose();
 	Gazer.removeAll();
 	TWEEN.removeAll();
+	Renderer.dispose();
 }
 function renderStart(callback) {
 	Renderer.animate(function() {

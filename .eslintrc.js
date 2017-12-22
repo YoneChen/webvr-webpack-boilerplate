@@ -25,6 +25,9 @@ module.exports = {
             "error",
             "unix"
         ],
+        "no-debugger": [
+            "warn"
+        ],
         "quotes": [
             "warn",
             "single"

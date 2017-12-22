@@ -42,7 +42,7 @@ class Index extends VRPage {
 		// add the audio object to the scene
 		WebVR.Scene.add( this.envSound );
 		// instantiate a loader
-		let loader = new THREE.AudioLoader();
+		const loader = new THREE.AudioLoader();
 
 		// load a resource
 		loader.load(
