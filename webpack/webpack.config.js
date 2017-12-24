@@ -18,7 +18,7 @@ module.exports = {
     extensions: ['.js', '.css','*'],
     alias: {
     	core: path.resolve(__dirname,'../src/core/'),
-    	page: path.resolve(__dirname,'../src/page/'),
+    	views: path.resolve(__dirname,'../src/views/'),
     	assets: path.resolve(__dirname,'../src/assets/'),
     	lib: path.resolve(__dirname,'../src/lib/')
     }
@@ -91,9 +91,8 @@ module.exports = {
     new CopyWebpackPlugin([
       // {output}/file.txt
       { 
-        from: path.resolve(__dirname,'../src/assets/model'),
-        ignore: ['*.mtl','*.dae','*.obj']
-    }
+        from: path.resolve(__dirname,'../src/assets')
+      }
     ]),
     new HtmlWebpackPlugin({
       inject: true,

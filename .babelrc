@@ -11,8 +11,11 @@
   "plugins":[
     "transform-runtime",
     "transform-async-generator-functions",
+    "transform-decorators-legacy",
+    "transform-decorators",
     "transform-function-bind",
     "transform-class-properties",
+    "transform-flow-strip-types",
     "transform-object-rest-spread",
     "syntax-dynamic-import"
   ]

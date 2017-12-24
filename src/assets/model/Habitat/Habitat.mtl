@@ -6,7 +6,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /../Habitat/Maps/bnc1.jpg
+map_Kd /Maps/bnc1.jpg
 
 newmtl material_1_houses
 d 1
@@ -16,7 +16,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0
 Km 0
-map_Kd /../Habitat/Maps/h2a.jpg
+map_Kd /Maps/h2a.jpg
 
 newmtl material_1_leaves
 d 1
@@ -26,7 +26,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0
 Km 0
-map_Kd /../Habitat/Maps/grs1.jpg
+map_Kd /Maps/grs1.jpg
 
 newmtl material_1_light_bulbs
 d 1
@@ -45,7 +45,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /../Habitat/Maps/hfe1b.jpg
+map_Kd /Maps/hfe1b.jpg
 
 newmtl material_1_sidewalk_&_bridge
 d 1
@@ -55,7 +55,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /../Habitat/Maps/brd1.jpg
+map_Kd /Maps/brd1.jpg
 
 newmtl material_1_terrain
 d 1
@@ -65,8 +65,8 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0
 Km 0
-map_Kd /../Habitat/Maps/trr1.jpg
-map_Bump /../Habitat/Maps/terrain_mtl1_bumpamt.jpg
+map_Kd /Maps/trr1.jpg
+map_Bump /Maps/terrain_mtl1_bumpamt.jpg
 
 newmtl material_1_trunks
 d 1
@@ -76,7 +76,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 0 0 0
 Km 0
-map_Kd /../Habitat/Maps/ow1.jpg
+map_Kd /Maps/ow1.jpg
 
 newmtl material_1_water
 d 0.8
@@ -86,7 +86,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /../Habitat/Maps/sw1qa.jpg
+map_Kd /Maps/sw1qa.jpg
 
 newmtl material_1_windows
 d 0.9
@@ -96,5 +96,5 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /../Habitat/Maps/wnd1.jpg
+map_Kd /Maps/wnd1.jpg
 

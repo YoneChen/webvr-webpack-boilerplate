@@ -1,4 +1,4 @@
-# webvr-webpack-boilerplate 
+# webvr-webpack-boilerplate
 
 > A webvr multi-pages project for three.js, es6/7, webpack and postcss.
 
@@ -41,30 +41,29 @@ This will generator minified scripts to `dist/`.
 
 Here comes the basic script to create a webvr page.
 See more pages in `src/page/*.js` .
+
 ```javascript
 import VRPage from 'core/js/VRPage';
 
-import ASSET_TEXTURE_BOX from '../assets/texture/box.jpg';
 class Index extends VRPage {
+  assets() {
+    return {
+      TEXTURE_SKYBOX: 'texture/360bg.jpg'
+    }
+  }
   start() {
-    const geometry = new THREE.CubeGeometry(5,5,5);
-    const material = new THREE.MeshBasicMaterial({ 
-      map: new THREE.TextureLoader().load(ASSET_TEXTURE_BOX) 
-    });
-    this.box = new THREE.Mesh(geometry,material);
-    this.box.position.set(3,-2,-3);
-    // add gaze eventLisenter
-    WebVR.Scene.add(this.box);
-    this.box.on('gaze',mesh => { // gazeIn trigger
-      mesh.scale.set(1.2,1.2,1.2);
-    },mesh => { // gazeOut trigger
-    });
+     // create panorama
+    const { TEXTURE_SKYBOX } = VRPage.assets;
+    const geometry = new THREE.SphereGeometry(radius,50,50);
+    const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(TEXTURE_SKYBOX),side:THREE.BackSide } );
+    const panorama = new THREE.Mesh(geometry,material);
+    WebVR.Scene.add(panorama);
   }
   loaded() {
-    console.log(`${ASSET_TEXTURE_BOX} has been loaded.`);
+    console.log(`page has been loaded.`);
   }
   update(delta) {
-    this.box.rotation.y += 0.05;
+    // animate
   }
 }
 export default Index;
@@ -73,64 +72,71 @@ export default Index;
 ### Init WebVR and Add Routers
 
 ```javascript
-// create routers map 
+// create router map
 WebVR.init([
   {
     route: '', // e.g http://127.0.1:9000/
-    path: 'index.js' // src/page/index.js
+    path: 'index.js' // src/views/index.js
   },
   {
     route: '1', // e.g http://127.0.1:9000/1
-    path: 'page1.js'
+    path: 'page1.js' // src/views/page1.js
   },
   {
     route: '2', // e.g http://127.0.1:9000/2
-    path: 'page2.js'
+    path: 'page2.js' // src/views/page2.js
   }
 ],document.querySelector('.webvr-container')
 );
 ```
 
 ## Forward Pages
+
 It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
+
 ```javascript
 WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
 /** 2 steps will be excuted by default in WebVR.forward function
 * WebVR.cleanPage(); // clear object3d and events in current page
-* import(`page/${fileName}.js`); // fetch and load the next page
+* import(`views/${fileName}.js`); // fetch and load the next page
 ** /
 ```
 
 ### WebVR API from VRCore.js
 
-| API | type | description |
+`WebVR` is declared as a gobal variable that import from VRCore.js
+
+| name | type | description |
 |:-----------|------------:|:------------:| 
-| WebVR.init       |        function(routerArray,domElement) |     init the router and vrcamera   
-| WebVR.forward       |        function(routeName) |     load and change the scene  
-| WebVR.Scene       |        THREE.Scene |     global webvr scene     
-| WebVR.Camera     |      THREE.PerspectiveCamera |    global webvr eyes    
-| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer      
-| WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair  
-| WebVR.Display       |        VRDisplay |     vrdispaly[0]  
+| WebVR.init       |        Function(routerArray,domElement) |     init the router and vrcamera   
+| WebVR.forward       |        Function(routeName) |     load and change the scene
+| WebVR.back       |        Function() |     equal to history.back()
+| WebVR.Scene       |        THREE.Scene |     global webvr scene
+| WebVR.Camera     |      THREE.PerspectiveCamera |    global camera of first person
+| WebVR.Renderer       |        THREE.Renderer |     global webvr renderer
+| WebVR.CrossHair       |        THREE.Object3d |     global webvr crosshair
+| WebVR.Display       |        VRDisplay |     vrdispaly[0]
 
-### VRPage instance function
+### VRPage class API
 
-| name | parameter | description |
+VRPage class is a class for create a webvr page.
+
+| name | type | description |
 |:-----------|------------:|:------------:|
-| start         |          null |      excute before the first rendering      
-| loaded       |       null |    excute after all the textures,3d models and audio are loaded    
-| update    |     parameter |   excute during each rendering
+| start         | Function() |      excute before the first rendering
+| loaded       | Function() |    excute after all the textures,3d models and audio are loaded
+| update    | Function() |   excute during each rendering
+| assets | Function() | declear assets path for the page
 
-
-## How it work?
+## How it work
 
 ![](http://upload-images.jianshu.io/upload_images/1939855-906ca3b5b179b888.png)
 
-## Need Help?
+## Need Help
 
 Ask questions [here](https://github.com/YoneChen/webvr-webpack-boilerplate/issues).
 
-## Any advise?
+## Any advise
 
 PR welcome [here](https://github.com/YoneChen/webvr-webpack-boilerplate/pulls).
 

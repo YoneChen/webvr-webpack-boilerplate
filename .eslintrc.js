@@ -4,12 +4,12 @@ module.exports = {
     "commonjs": true,
     "es6": true
   },
-  "ecmaVersion": 8,
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+      "experimentalObjectRestSpread": true,
+      "experimentalDecorators": true
     },
     "sourceType": "module"
   },
@@ -39,6 +39,7 @@ module.exports = {
         "no-console": [
             "off"
         ],
+        "experimentalDecorators": ["on"],
         "no-unused-vars": [
             "off"
         ]

@@ -2,9 +2,12 @@
  /*global WebVR:true*/
 import VRPage from 'core/js/VRPage';
 import CANNON from 'cannon';
-import ASSET_TEXTURE_GROUND from 'assets/texture/road.jpg';
-import ASSET_AUDIO_ENV from 'assets/audio/env.wav';
 class page2 extends VRPage {
+	assets() {
+		return {
+			TEXTURE_GROUND: 'texture/road.jpg'
+		};
+	}
 	start() {
 		this.initPhysicsWorld();
 		this.addLight();
@@ -67,9 +70,10 @@ class page2 extends VRPage {
 		WebVR.Scene.add(sky);
 	}
 	addGround(width, height) {
-		// 创建地平面
+		// create ground 
+		const {TEXTURE_GROUND} = this.assets;
 		const geometry = new THREE.PlaneBufferGeometry(width, height);
-		const map = new THREE.TextureLoader().load(ASSET_TEXTURE_GROUND);
+		const map = new THREE.TextureLoader().load(TEXTURE_GROUND);
 		const material = new THREE.MeshLambertMaterial({ map });
 		material.map.repeat.set(10, 10);
 		material.map.wrapS = THREE.RepeatWrapping;
