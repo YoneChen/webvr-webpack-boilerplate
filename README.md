@@ -53,7 +53,7 @@ class Index extends VRPage {
   }
   start() {
      // create panorama
-    const { TEXTURE_SKYBOX } = VRPage.assets;
+    const { TEXTURE_SKYBOX } = this.assets;
     const geometry = new THREE.SphereGeometry(radius,50,50);
     const material = new THREE.MeshBasicMaterial( { map: new THREE.TextureLoader().load(TEXTURE_SKYBOX),side:THREE.BackSide } );
     const panorama = new THREE.Mesh(geometry,material);
