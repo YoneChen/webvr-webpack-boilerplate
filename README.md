@@ -60,7 +60,7 @@ class Index extends VRPage {
     WebVR.Scene.add(panorama);
   }
   loaded() {
-    console.log(`page has been loaded.`);
+    console.log('assets has been loaded.');
   }
   update(delta) {
     // animate
@@ -94,11 +94,11 @@ WebVR.init([
 
 WebVR.Router is a router controling the action between vr pages.
 
-* push(routerName) // e.g: WebVR.Router.push('home') // goto 127.0.0.1:8080/home,history will push state
-* replace(routerName) // e.g: WebVR.Router.replace('home') // goto 127.0.0.1:8080/home,history will replace state
+* push(routerName) `WebVR.Router.push('home') // goto 127.0.0.1:8080/home,history will push state`
+* replace(routerName) `WebVR.Router.replace('home') // goto 127.0.0.1:8080/home,history will replace state`
 * back()
 
-By use `WebVR.Router.push` can just fetch the script of page when you need to goto other vr pages.
+By using `WebVR.Router.push` can just fetch the script of page when you need to goto other vr pages.
 
 ```javascript
 WebVR.Router.push('2'); // it will redirect to e.g: 127.0.0.1:8080/2
