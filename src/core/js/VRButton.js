@@ -1,4 +1,4 @@
-import 'core/css/vr-button';
+import '@/core/css/vr-button';
 // VR button controller
 const VRButton = {
     init(container,display,renderer) {

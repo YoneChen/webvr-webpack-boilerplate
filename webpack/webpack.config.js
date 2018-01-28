@@ -17,10 +17,7 @@ module.exports = {
 
     extensions: ['.js', '.css','*'],
     alias: {
-    	core: path.resolve(__dirname,'../src/core/'),
-    	views: path.resolve(__dirname,'../src/views/'),
-    	assets: path.resolve(__dirname,'../src/assets/'),
-    	lib: path.resolve(__dirname,'../src/lib/')
+      '@': path.resolve(__dirname,'../src/')
     }
 
   },

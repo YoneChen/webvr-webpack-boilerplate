@@ -1,6 +1,6 @@
 {
   "name": "webvr-webpack-boilerplate",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "A webvr project for three.js, es6/7, webpack and postcss",
   "scripts": {
     "start": "webpack-dev-server --config webpack/webpack.dev.js --watch",

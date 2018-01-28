@@ -1,6 +1,6 @@
  /*global THREE:true*/
  /*global WebVR:true*/
-import VRPage from 'core/js/VRPage';
+import VRPage from '@/core/js/VRPage';
 import CANNON from 'cannon';
 class page2 extends VRPage {
 	assets() {

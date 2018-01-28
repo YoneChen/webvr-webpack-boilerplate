@@ -25,7 +25,7 @@
 
 ## Configuration
 
-You can custom your local environment port(default 9000) via `webpack/webpack.dev.js`.
+You can custom your local environment port via `webpack/webpack.dev.js`.
 
 ## Run in development
 
@@ -40,7 +40,7 @@ This will generator minified scripts to `dist/`.
 ## Create webvr page
 
 Here comes the basic script to create a webvr page.
-See more pages in `src/page/*.js` .
+See more pages in `src/views/*.js` .
 
 ```javascript
 import VRPage from 'core/js/VRPage';
@@ -74,32 +74,34 @@ export default Index;
 ```javascript
 // create router map
 WebVR.init([
-  {
-    route: '', // e.g http://127.0.1:9000/
-    path: 'index.js' // src/views/index.js
-  },
-  {
-    route: '1', // e.g http://127.0.1:9000/1
-    path: 'page1.js' // src/views/page1.js
-  },
-  {
-    route: '2', // e.g http://127.0.1:9000/2
-    path: 'page2.js' // src/views/page2.js
-  }
+    {
+        path: '/', // e.g 127.0.0.1:8080/
+        component: () => import('@/views/index.js')
+    },
+    {
+        path: '/user', // e.g 127.0.0.1:8080/1
+        component: () => import('@/views/userPage.js')
+    },
+    {
+        path: '/detail', // e.g 127.0.0.1:8080/2
+        component: () => import('@/views/detailPage.js')
+    }
 ],document.querySelector('.webvr-container')
 );
 ```
 
-## Forward Pages
+## WebVR Router
 
-It is no need to fetch more html,just fetch the script of page when you need to go forward other pages.
+WebVR.Router is a router controling the action between vr pages.
+
+* push(routerName) // e.g: WebVR.Router.push('home') // goto 127.0.0.1:8080/home,history will push state
+* replace(routerName) // e.g: WebVR.Router.replace('home') // goto 127.0.0.1:8080/home,history will replace state
+* back()
+
+By use `WebVR.Router.push` can just fetch the script of page when you need to goto other vr pages.
 
 ```javascript
-WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
-/** 2 steps will be excuted by default in WebVR.forward function
-* WebVR.cleanPage(); // clear object3d and events in current page
-* import(`views/${fileName}.js`); // fetch and load the next page
-** /
+WebVR.Router.push('2'); // it will redirect to e.g: 127.0.0.1:8080/2
 ```
 
 ### WebVR API from VRCore.js
@@ -107,10 +109,9 @@ WebVR.forward('2'); // it will redirect to e.g: http://127.0.1:9000/2
 `WebVR` is declared as a gobal variable that import from VRCore.js
 
 | name | type | description |
-|:-----------|------------:|:------------:| 
-| WebVR.init       |        Function(routerArray,domElement) |     init the router and vrcamera   
-| WebVR.forward       |        Function(routeName) |     load and change the scene
-| WebVR.back       |        Function() |     equal to history.back()
+|:-----------|------------:|:------------:|
+| WebVR.init       |        Function(routerArray,domElement) |     init the router and vrcamera
+| WebVR.Router       |        Object |     router for controling the action between vr pages
 | WebVR.Scene       |        THREE.Scene |     global webvr scene
 | WebVR.Camera     |      THREE.PerspectiveCamera |    global camera of first person
 | WebVR.Renderer       |        THREE.Renderer |     global webvr renderer

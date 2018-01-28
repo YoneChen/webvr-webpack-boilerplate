@@ -1,6 +1,6 @@
 /*global THREE:true*/
 /*global WebVR:true*/
-import VRPage from 'core/js/VRPage';
+import VRPage from '@/core/js/VRPage';
 
 class Index extends VRPage {
 	assets() {
@@ -17,14 +17,14 @@ class Index extends VRPage {
 			index: -1,
 			text: 'Goto Page1!',
 			callback: () => {
-				WebVR.Router.forward('1');
+				WebVR.Router.push('1');
 			}
 		});
 		this.addButton({
 			index: 1,
 			text: 'Goto Page2!',
 			callback: () => {
-				WebVR.Router.forward('2');
+				WebVR.Router.push('2');
 			}
 		});
 		this.addDirectLight();

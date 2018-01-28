@@ -1,7 +1,8 @@
  /*global THREE:true*/ 
  /*global TWEEN:true*/
- import 'core/css/main.css';
+ import '@/core/css/main.css';
  import VRButton from './VRButton';
+ import Router from './VRRouter';
  import GazeEvent from 'gaze-event';
  let 
 	 //public props
@@ -15,6 +16,9 @@
  function init(routers,container,fov,far) {
 	 createScene(...Array.prototype.slice.call(arguments,1));
 	 Router.createRouter(routers);
+	 Router.onchange(() => {
+		 cleanPage();
+	 })
  }
  function createScene(container=document.body,fov=70,far=4000) {
 	 if (!(container instanceof HTMLElement)) {
@@ -38,63 +42,7 @@
 	 Gazer = new GazeEvent();
 	 addCrossHair();
  }
- // create Router to simulate routes
- const Router = {
-	 createRouter(routes=[{'':'index.js'}]) {
-		 this.routeObj = {};
-		 routes.forEach(route => {
-			 Object.defineProperty(this.routeObj,route.route,{value:route.path}); 
-		 });
-		 this.proxyRouter();
-		 this.historyProxy();
-	 },
-	 // when enter url,redirect(fetch and run page script)
-	 proxyRouter() {
-		 const routeName = this.getCurrentRouteName();
-		 const fileName = this.getFileName(routeName);
-		 history.replaceState(
-			 {
-				 routeName,
-				 fileName
-			 },
-			 0,this.getCurrentRouteName()
-		 );
-		 this.fetchFile(fileName);
-	 },
-	 // fetch and run page script
-	 forward(routeName,newtarget = true) {
-		 cleanPage();
-		 const fileName = this.getFileName(routeName);
-		 if (newtarget) {
-			 history.pushState({
-				 routeName,
-				 fileName
-			 },0,routeName);
-		 }
-		 this.fetchFile(fileName);
-	 },
-	 // when go back or go forward,run pre-page script.
-	 historyProxy() {
-		 window.addEventListener('popstate',e => {
-			 const routeName = e.state.routeName;
-			 this.forward(routeName,false);
-		 },false);
-	 },
-	 getCurrentRouteName() {
-		 return location.pathname.split('/').pop();
-	 },
-	 getFileName(routeName) {
-		 return this.routeObj[routeName] || '';
-	 },
-	 back() {
-		 history.back();
-	 }
- };
- Router.fetchFile = function(fileName) {
-	 import(`views/${fileName}`).then(page => {
-		 new page.default();
-	 });
- };
+
  function bindEvent() {
  
 	 window.addEventListener( 'resize', e => {

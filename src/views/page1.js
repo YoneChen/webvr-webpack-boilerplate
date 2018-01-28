@@ -1,9 +1,9 @@
 /*global THREE:true*/
 /*global WebVR:true*/
 /*global TWEEN:true*/
-import VRPage from 'core/js/VRPage';
-import 'lib/OBJLoader';
-import 'lib/MTLLoader';
+import VRPage from '@/core/js/VRPage';
+import '@/lib/OBJLoader';
+import '@/lib/MTLLoader';
 class page1 extends VRPage {
 	assets() {
 		return {
