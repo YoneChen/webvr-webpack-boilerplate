@@ -1,10 +1,9 @@
 module.exports = {
   plugins: {
-    'postcss-import': {},
     'postcss-cssnext': {
       browsers: ['last 2 versions', '> 5%'],
     },
-    'cssnano': { reduceIdents: false, zindex: false }
+    ...process.env.NODE_ENV === 'production' ? {'cssnano': { reduceIdents: false,zindex: false} } : {}
     // 'precss': {}
   },
 };

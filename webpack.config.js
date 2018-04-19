@@ -1,11 +1,9 @@
 const path = require('path');
-const CommonsChunkPlugin = require('webpack/lib/optimize/CommonsChunkPlugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const ModuleConcatenationPlugin = require('webpack/lib/optimize/ModuleConcatenationPlugin');
-
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
 
   entry: {
@@ -17,7 +15,7 @@ module.exports = {
 
     extensions: ['.js', '.css','*'],
     alias: {
-      '@': path.resolve(__dirname,'../src/')
+      '@': path.resolve(__dirname,'./src/')
     }
 
   },
@@ -29,26 +27,27 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: ['babel-loader', 'eslint-loader']
+        use: 'babel-loader'
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            options: { minimize: true }
+          }
+        ]
       },
 
       {
       	test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-          {
+        use: ['style-loader',{
             loader: 'css-loader',
             options: {
               sourceMap: true,
               importLoaders: 1
             }
-          },
-          {
-            loader: 'postcss-loader'
-          }
-        ]
-        })
+          },'postcss-loader']
       },
 
       {
@@ -77,25 +76,31 @@ module.exports = {
     new ProvidePlugin({
       'THREE': 'three',
       'TWEEN': '@tweenjs/tween.js',
-      'WebVR':path.resolve(__dirname,'../src/core/js/VRCore.js')
-    }),
-    new ModuleConcatenationPlugin(),
-    new ExtractTextPlugin('[name].css'),
-    new CommonsChunkPlugin({
-      name: ['app', 'vendor'],
-      minChunks: Infinity
+      'WebVR':path.resolve(__dirname,'./src/core/js/VRCore.js')
     }),
     new CopyWebpackPlugin([
       // {output}/file.txt
       { 
-        from: path.resolve(__dirname,'../src/assets')
+        from: path.resolve(__dirname,'./src/assets')
       }
     ]),
     new HtmlWebpackPlugin({
       inject: true,
-      template: path.resolve(__dirname, '../src/index.html'),
-      favicon: path.resolve(__dirname, '../src/favicon.ico')
-    })
-  ]
+      template: path.resolve(__dirname, './src/index.html'),
+      favicon: path.resolve(__dirname, './src/favicon.ico')
+    }),
+    new CleanWebpackPlugin(['dist'], {
+      root: path.resolve(__dirname, '..')
+    }),
+  ],
+  devServer: {
+    open: true,
+    overlay: {
+      warnings: true,
+      errors: true
+    },
+    port: 9000,
+    inline: true
+  }
 
 };
