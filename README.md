@@ -41,7 +41,7 @@ Here comes the basic script to create a webvr page.
 See more pages in `src/views/*.js` .
 
 ```javascript
-import VRPage from 'core/js/VRPage';
+import VRPage from '@/core/js/VRPage';
 
 class Index extends VRPage {
   assets() {
