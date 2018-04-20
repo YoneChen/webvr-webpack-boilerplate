@@ -2,8 +2,6 @@
 
 > A webvr multi-pages project for three.js, es6/7, webpack and postcss.
 
-[![Build Status](https://travis-ci.org/YoneChen/webvr-webpack-boilerplate.svg?branch=master)](https://travis-ci.org/YoneChen/webvr-webpack-boilerplate)
-
 ![](https://pic2.zhimg.com/v2-251229f9ea0b901b1d29bd2aa11a69e9_b.png)
 
 > [中文](https://zhuanlan.zhihu.com/p/26907805)
