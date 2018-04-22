@@ -99,6 +99,7 @@ module.exports = {
       warnings: true,
       errors: true
     },
+    historyApiFallback: true,
     port: 9000,
     inline: true
   }
