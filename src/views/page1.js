@@ -2,8 +2,7 @@
 /*global WebVR:true*/
 /*global TWEEN:true*/
 import VRPage from '@/core/js/VRPage';
-import '@/lib/OBJLoader';
-import '@/lib/MTLLoader';
+import {getOBJModel} from '@/utils/common'
 class page1 extends VRPage {
 	assets() {
 		return {
@@ -76,23 +75,12 @@ class page1 extends VRPage {
 		light.shadow.camera.bottom = -150;
 		WebVR.Scene.add(light);
 	}
-	addHabitat() {
+	async addHabitat() {
 		const { PATH, OBJ, MTL } = this.assets.MODEL_HABITAT;
-		const mtlLoader = new THREE.MTLLoader();
-		mtlLoader.setTexturePath(PATH);
-		mtlLoader.load(MTL, materials => {
-
-			materials.preload();
-			const objLoader = new THREE.OBJLoader();
-			objLoader.setMaterials(materials);
-			objLoader.load(OBJ, object => {
-				object.position.set(0, -12, 0);
-				object.scale.set(0.1, 0.1, 0.1);
-				WebVR.Scene.add(object);
-
-			});
-
-		});
+		const object = await getOBJModel(PATH,OBJ,MTL);
+		object.position.set(0, -12, 0);
+		object.scale.set(0.1, 0.1, 0.1);
+		WebVR.Scene.add(object);
 	}
 	update() {
 	}

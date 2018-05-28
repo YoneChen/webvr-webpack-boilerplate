@@ -1,12 +1,6 @@
 {
-  "presets": [
-    ["env", {
-      "modules": false,
-      "loose": true
-    }]
-  ],
+  "presets": ["env","stage-0"],
   "plugins":[
-    "transform-runtime",
-    "syntax-dynamic-import"
+    "transform-runtime"
   ]
 }
