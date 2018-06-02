@@ -1,11 +1,10 @@
 {
   "name": "webvr-webpack-boilerplate",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "A webvr project for three.js, es6/7, webpack and postcss",
   "scripts": {
     "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode production",
-    "precommit": "eslint src"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
@@ -40,7 +39,6 @@
     "babel-preset-stage-0": "^6.24.1",
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.1",
-    "cross-env": "^4.0.0",
     "css-loader": "^0.26.2",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",

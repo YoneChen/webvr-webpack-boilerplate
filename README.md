@@ -99,12 +99,11 @@ VRScene class is a class for create a scene below the root scene.
 | loaded       | Function() |    excute after all the textures,3d models and audio are loaded
 | update    | Function() |   excute during each rendering
 | assets | Function() | declear assets path for the scene
-
 | root | Object | gobal property ,incluing root.scene, root.camera and so on.
 
-### vRScene.root
+### VRScene.root
 
-`this.root` is declared as a gobal variable among all VRScenes.
+Using `this.root` to get gobal variable among all VRScenes.
 It is a property of the VRScene instance, incluing root.scene, root.camera and so on.
 
 | name | type | description |
