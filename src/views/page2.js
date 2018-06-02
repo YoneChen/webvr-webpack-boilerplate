@@ -1,8 +1,7 @@
  /*global THREE:true*/
- /*global WebVR:true*/
-import VRPage from '@/core/js/VRPage';
+import { VRScene } from '@/core';
 import CANNON from 'cannon';
-class page2 extends VRPage {
+class page2 extends VRScene {
 	assets() {
 		return {
 			TEXTURE_GROUND: 'texture/road.jpg'
@@ -24,7 +23,7 @@ class page2 extends VRPage {
 	}
 	addLight() {
 		// create the enviromental light
-		WebVR.Scene.add(new THREE.AmbientLight(0xFFFFFF));
+		this.add(new THREE.AmbientLight(0xFFFFFF));
 		const light = new THREE.DirectionalLight(0xffffff, 1);
 		light.position.set(30, 30, -30);
 		light.castShadow = true;
@@ -35,10 +34,9 @@ class page2 extends VRPage {
 		light.shadow.camera.right = 350;
 		light.shadow.camera.top = 350;
 		light.shadow.camera.bottom = -350;
-		WebVR.Scene.add( light );
+		this.add( light );
 	}
 	addBalls() {
-		const { scene } = this;
 		for (let i = 0; i < 60; i++) {
 			// create ball
 			const material = new THREE.MeshLambertMaterial({
@@ -52,12 +50,12 @@ class page2 extends VRPage {
 			ball.castShadow = true;
 			ball.receiveShadow = true;
 			ball.position.set(30 * Math.random() - 15, 30 * Math.random() + 15, 30 * Math.random() - 15);
-			WebVR.Scene.add(ball);
+			this.add(ball);
 			this.addBody(ball, 1); // 质量为1
-			WebVR.Gazer.on(ball, 'gazeEnter', () => {
+			this.root.gazer.on(ball, 'gazeEnter', () => {
 				ball.material.opacity = 0.5;
 			});
-			WebVR.Gazer.on(ball, 'gazeLeave', () => {
+			this.root.gazer.on(ball, 'gazeLeave', () => {
 				ball.material.opacity = 1;
 			});
 		}
@@ -67,7 +65,7 @@ class page2 extends VRPage {
 		const geometry = new THREE.SphereGeometry(radius,50,50);
 		const material = new THREE.MeshBasicMaterial( { color,side:THREE.BackSide } );
 		const sky = new THREE.Mesh(geometry,material);
-		WebVR.Scene.add(sky);
+		this.add(sky);
 	}
 	addGround(width, height) {
 		// create ground 
@@ -82,7 +80,7 @@ class page2 extends VRPage {
 		ground.rotation.x = - Math.PI / 2;
 		ground.position.y = -10;
 		ground.receiveShadow = true;
-		WebVR.Scene.add(ground);
+		this.add(ground);
 		this.addBody(ground, 0);
 	}
 	addBody(mesh, mass) {

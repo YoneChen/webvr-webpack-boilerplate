@@ -1,24 +1,20 @@
 /*global THREE:true*/
-/*global WebVR:true*/
-/*global TWEEN:true*/
-import VRPage from '@/core/js/VRPage';
-import {getOBJModel} from '@/utils/common'
-class page1 extends VRPage {
+import { VRScene } from '@/core';
+import {getGLTFModel} from '@/utils/common'
+class page1 extends VRScene {
 	assets() {
 		return {
 			AUDIO_ENV: 'audio/env.wav',
-			MODEL_HABITAT: {
-				PATH: 'model/Habitat/',
-				OBJ: 'model/Habitat/Habitat.obj',
-				MTL: 'model/Habitat/Habitat.mtl'
+			MODEL_VILLAGE: {
+				PATH: 'model/village/scene.gltf'
 			}
 		};
 	}
 	start() {
 		const { AUDIO_ENV } = this.assets;
 		this.addEnvAudio(AUDIO_ENV);
-		this.addSky(1000, 0xffffff);
-		this.addHabitat();
+		this.addSky(1000, 0x111122);
+		this.addVillage();
 		this.addDirectLight();
 		this.addFog();
 	}
@@ -28,10 +24,10 @@ class page1 extends VRPage {
 	}
 	addEnvAudio(path) {
 		// instantiate audio object
-		this.envSound = new THREE.Audio(WebVR.AudioListener);
+		this.envSound = new THREE.Audio(this.root.audioListener);
 
 		// add the audio object to the scene
-		WebVR.Scene.add(this.envSound);
+		this.add(this.envSound);
 		// instantiate a loader
 		let loader = new THREE.AudioLoader();
 
@@ -54,16 +50,16 @@ class page1 extends VRPage {
 		const geometry = new THREE.SphereGeometry(radius, 50, 50);
 		const material = new THREE.MeshBasicMaterial({ color, side: THREE.BackSide });
 		const sky = new THREE.Mesh(geometry, material);
-		WebVR.Scene.add(sky);
+		this.add(sky);
 	}
 	addFog() {
-		WebVR.Scene.fog = new THREE.Fog(0xdddddd, 0.01, 50);
+		this.fog = new THREE.Fog(0xdddddd, 0.01, 10);
 	}
 	addDirectLight() {
 		// create the enviromental light
-		WebVR.Scene.add(new THREE.AmbientLight(0xdddddd));
+		this.add(new THREE.AmbientLight(0xaaaaaa));
 		const light = new THREE.DirectionalLight(0xddddcc, 0.3);
-		light.position.set(100, 100, 100);
+		light.position.set(10, 10, 10);
 		light.castShadow = true;
 		light.shadow.mapSize.width = 2048;
 		light.shadow.mapSize.height = 512;
@@ -73,14 +69,14 @@ class page1 extends VRPage {
 		light.shadow.camera.right = 500;
 		light.shadow.camera.top = 150;
 		light.shadow.camera.bottom = -150;
-		WebVR.Scene.add(light);
+		this.add(light);
 	}
-	async addHabitat() {
-		const { PATH, OBJ, MTL } = this.assets.MODEL_HABITAT;
-		const object = await getOBJModel(PATH,OBJ,MTL);
-		object.position.set(0, -12, 0);
-		object.scale.set(0.1, 0.1, 0.1);
-		WebVR.Scene.add(object);
+	async addVillage() {
+		const { PATH } = this.assets.MODEL_VILLAGE;
+		const {scene} = await getGLTFModel(PATH);
+		scene.position.set(0, -1, 0);
+		scene.scale.set(0.2, 0.2, 0.2);
+		this.add(scene);
 	}
 	update() {
 	}

@@ -1,8 +1,9 @@
 import {getTexture} from '@/utils/common'
 const {Object3D} = THREE;
 class Button extends Object3D {
-    constructor(options) {
+    constructor(root,options) {
         super();
+        this.root = root;
         this._init(options);
     }
     onFocus() {}
@@ -10,7 +11,7 @@ class Button extends Object3D {
     onSelect() {}
     _init(options) {
         const option = {
-            camera: WebVR.Camera,
+            camera: this.root.camera,
             width: 10,
             height: 7.5,
             fontSize: 4,
@@ -22,22 +23,22 @@ class Button extends Object3D {
         const button = this.createButton(option);
         this.add(button);
         const pointer = this.createPoint();
-        WebVR.Gazer.on(button, 'gazeEnter', ({point}) => {
-            WebVR.Scene.add(pointer);
+        this.root.gazer.on(button, 'gazeEnter', ({point}) => {
+            this.root.scene.add(pointer);
             this.onFocus();
-            WebVR.CrossHair.animate.loader.start();
+            this.root.crossHair.animate.loader.start();
         });
-        WebVR.Gazer.on(button, 'gazeTrigger', ({point}) => {
+        this.root.gazer.on(button, 'gazeTrigger', ({point}) => {
             const z = point.z > 0 ? point.z - 0.01 : point.z + 0.01;
             pointer.position.set(point.x,point.y,z)
         });
-        WebVR.Gazer.on(button, 'gazeLeave', ({point}) => {
-            WebVR.Scene.remove(pointer);
-            WebVR.CrossHair.animate.loader.stop();
+        this.root.gazer.on(button, 'gazeLeave', ({point}) => {
+            this.root.scene.remove(pointer);
+            this.root.crossHair.animate.loader.stop();
             this.onBlur();
         });
-        WebVR.Gazer.on(button, 'gazeWait', ({point}) => {
-            WebVR.CrossHair.animate.loader.stop();
+        this.root.gazer.on(button, 'gazeWait', ({point}) => {
+            this.root.crossHair.animate.loader.stop();
             this.onSelect();
         });
     }

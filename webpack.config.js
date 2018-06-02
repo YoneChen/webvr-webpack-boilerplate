@@ -7,7 +7,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
 
   entry: {
-    'vendor': './src/core/js/vendor.js',
     'app': './src/index.js'
   },
 
@@ -76,7 +75,6 @@ module.exports = {
     new ProvidePlugin({
       'THREE': 'three',
       'TWEEN': '@tweenjs/tween.js',
-      'WebVR':path.resolve(__dirname,'./src/core/js/VRCore.js')
     }),
     new CopyWebpackPlugin([
       // {output}/file.txt

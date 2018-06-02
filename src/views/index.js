@@ -1,8 +1,7 @@
 /*global THREE:true*/
-/*global WebVR:true*/
-import VRPage from '@/core/js/VRPage';
+import { VRScene } from '@/core';
 import { Button } from '@/components';
-class Index extends VRPage {
+class Index extends VRScene {
 	assets() {
 		return {
 			TEXTURE_SKYBOX: 'texture/360bg.jpg',
@@ -13,17 +12,17 @@ class Index extends VRPage {
 		const { AUDIO_ENV, TEXTURE_SKYBOX } = this.assets;
 		this.addEnvAudio(AUDIO_ENV);
 		this.addPanorama(1000, TEXTURE_SKYBOX);
-        const button_page1 = new Button({text: 'Goto Page1!', fontSize: 0.8, width: 6, height: 4});
+        const button_page1 = new Button(this.root,{text: 'Goto Page1!', fontSize: 0.8, width: 6, height: 4});
 		button_page1.position.set(-6,0,-15);
-        WebVR.Scene.add(button_page1);
+        this.add(button_page1);
 		button_page1.onSelect = () => {
-			WebVR.Router.push('1');
+			this.root.router.push('1');
 		}
-        const button_page2 = new Button({text: 'Goto Page2!', fontSize: 0.8, width: 6, height: 4});
+        const button_page2 = new Button(this.root,{text: 'Goto Page2!', fontSize: 0.8, width: 6, height: 4});
 		button_page2.position.set(6,0,-15);
-        WebVR.Scene.add(button_page2);
+        this.add(button_page2);
 		button_page2.onSelect = () => {
-			WebVR.Router.push('2');
+			this.root.router.push('2');
 		}
 		this.addDirectLight();
 	}
@@ -37,14 +36,14 @@ class Index extends VRPage {
 		const texture = new THREE.TextureLoader().load(path);
 		const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
 		const panorama = new THREE.Mesh(geometry, material);
-		WebVR.Scene.add(panorama);
+		this.add(panorama);
 	}
 	addEnvAudio(path) {
 		// instantiate audio object
-		this.envSound = new THREE.Audio(WebVR.AudioListener);
+		this.envSound = new THREE.Audio(this.root.audioListener);
 
 		// add the audio object to the scene
-		WebVR.Scene.add(this.envSound);
+		this.add(this.envSound);
 		// instantiate a loader
 		const loader = new THREE.AudioLoader();
 
@@ -62,7 +61,7 @@ class Index extends VRPage {
 	}
 	addDirectLight() {
 		// create the enviromental light
-		WebVR.Scene.add(new THREE.AmbientLight(0xFFFFFF));
+		this.add(new THREE.AmbientLight(0xFFFFFF));
 		let light = new THREE.DirectionalLight(0xffffff, 0.3);
 		light.position.set(50, 50, 50);
 		light.castShadow = true;
@@ -74,7 +73,7 @@ class Index extends VRPage {
 		light.shadow.camera.right = 1000;
 		light.shadow.camera.top = 350;
 		light.shadow.camera.bottom = -350;
-		WebVR.Scene.add(light);
+		this.add(light);
 	}
 	update() {
 	}
