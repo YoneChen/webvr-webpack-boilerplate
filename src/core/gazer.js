@@ -53,7 +53,7 @@ class VRGaze {
     }
     /** Remove all the target listeners. */
     removeAll() {
-        this._lastTarget && this.rayList[this._lastTarget.id].gazeLeave(this._intersection);
+        this._lastTarget && this._lastTarget.id in this.rayList && this.rayList[this._lastTarget.id].gazeLeave(this._intersection);
         this.rayList = {}, this.targetList = [],this._lastTarget = null;
     }
     update(camera) {

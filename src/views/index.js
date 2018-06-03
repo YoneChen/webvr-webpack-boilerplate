@@ -36,6 +36,7 @@ class Index extends VRScene {
 		const texture = new THREE.TextureLoader().load(path);
 		const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.BackSide });
 		const panorama = new THREE.Mesh(geometry, material);
+		this.root.scene.fog = null;
 		this.add(panorama);
 	}
 	addEnvAudio(path) {

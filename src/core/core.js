@@ -1,9 +1,9 @@
  /*global THREE:true*/ 
  /*global TWEEN:true*/
  import './css/main.css';
- import VRButton from './VRButton';
- import Router from './VRRouter';
- import VRGaze from './VRGaze';
+ import VRButton from './button';
+ import Router from './router';
+ import Gazer from './gazer';
  
 const $scope = {};
  function create(routers,container,fov,far) {
@@ -35,7 +35,7 @@ const $scope = {};
 	 _initVR();
 	 _initAudio();
 	 _bindEvent();
-	 $scope.gazer = new VRGaze();
+	 $scope.gazer = new Gazer();
 	 _addCrossHair();
  }
 
@@ -105,8 +105,8 @@ const $scope = {};
 	 $scope.crossHair = crossHair;
  }
  function renderStop() {
-	$scope.renderer.dispose();
 	$scope.gazer.removeAll();
+	$scope.renderer.dispose();
 	TWEEN.removeAll();
  }
  function renderStart(callback) {

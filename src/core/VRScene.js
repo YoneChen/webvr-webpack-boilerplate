@@ -1,5 +1,5 @@
 /*global THREE:true*/
-import { root, renderStart } from './VRCore';
+import { root, renderStart } from './core';
 const { Scene } = THREE;
 import LoadControl from './loadControl';
 class VRScene extends Scene {

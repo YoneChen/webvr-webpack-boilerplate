@@ -53,7 +53,8 @@ class page1 extends VRScene {
 		this.add(sky);
 	}
 	addFog() {
-		this.fog = new THREE.Fog(0xdddddd, 0.01, 10);
+		// this.fog = new THREE.Fog(0xdddddd, 0.01, 10);
+		this.root.scene.fog = new THREE.Fog(0xdddddd, 0.01, 15);
 	}
 	addDirectLight() {
 		// create the enviromental light
