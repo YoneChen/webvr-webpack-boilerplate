@@ -88,7 +88,7 @@ module.exports = {
       favicon: path.resolve(__dirname, './src/favicon.ico')
     }),
     new CleanWebpackPlugin(['dist'], {
-      root: path.resolve(__dirname, '..')
+      root: path.resolve(__dirname, './')
     }),
   ],
   devServer: {
