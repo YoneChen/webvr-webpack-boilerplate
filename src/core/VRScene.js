@@ -29,7 +29,7 @@ class VRScene extends Scene {
 			setTimeout(() => {
 				this.loaded();
 				manager = null;
-				renderStart(this.update.bind(this));
+				renderStart(::this.update);
 			},100);
 			console.log('finish');
 		 };
@@ -48,7 +48,7 @@ class VRScene extends Scene {
 			 if(!this.loadControl.hasAnimate())this.loadControl.initAnimate(this.LoaderCount);
 			 this.loadControl.loadItem(); 
 		 };
-		 manager.onLoad = _managerLoaded.bind(this);
+		 manager.onLoad = this::_managerLoaded;
 	 }
  }
  export default VRScene
